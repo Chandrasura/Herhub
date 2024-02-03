@@ -65,3 +65,15 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 });
+Route::get('/profile', function () {
+    return view('user.profile');
+});
+Route::get('/set', function () {
+    return view('user.info');
+});
+Route::get('/deposit', function () {
+    return view('user.deposit');
+});
+Route::get('/withdraw', function () {
+    return view('user.withdraw');
+});

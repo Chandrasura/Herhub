@@ -22,16 +22,16 @@
                             <ul class="py-2 text-sm border border-blue-400 text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownDefaultButton">
                                 <li>
-                                    <a href="#"
+                                    <a href="/profile"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-b border-blue-400">Profile</a>
                                 </li>
                                 <li>
                                     <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-b border-blue-400">>Status</a>
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-b border-blue-400">Status</a>
                                 </li>
                                 <li>
                                     <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-b border-blue-400">>Records</a>
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-b border-blue-400">Records</a>
                                 </li>
                                 <li>
                                     <a href="#"
