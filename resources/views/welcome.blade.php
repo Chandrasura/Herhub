@@ -120,7 +120,7 @@
         <div class="flex items-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative contentBx">
             <h3 class="text-center font-bold mb-4 text-lg text-gray-800">VIP LEVEL</h3>
             <div class="content active">
-                <div class="flex gap-6 justify-between items-center">
+                <div class="flex md:flex-row flex-col gap-6 justify-between items-center">
                     <div class="card">
                         <img src="assets/diamond1.png" class="w-1/3 h-1/3 object-contain" alt="hero" />
                         <div class="text-white mt-4 text-lg">
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="content">
-                <div class="flex gap-6 justify-between items-center">
+                <div class="flex md:flex-row flex-col gap-6 justify-between items-center">
                     <div class="card">
                         <img src="assets/diamond1.png" class="w-1/3 h-1/3 object-contain" alt="hero" />
                         <div class="text-white mt-4 text-lg">
@@ -181,7 +181,7 @@
                 </li>
             </ul>
         </div>
-        <div class="flex items-center flex-col bg-white h-fit w-full p-10 relative">
+        <div class="flex items-center flex-col bg-white h-fit w-full p-10 relative" id="events">
             <h3 class="text-center font-bold mb-4 text-xl text-gray-800">EVENTS</h3>
             <div class="bg-white1 p-10 w-full rounded-md flex flex-col justify-center items-center">
                 <div>
@@ -193,8 +193,8 @@
                         reward system for all ourcherished users.</p>
                 </div>
                 <div class="bg-black1 mt-4 h-fit rounded-lg w-full">
-                    <div class="flex justify-between items-center p-6">
-                        <div class="text-white border-r border-frame border-dotted p-4">
+                    <div class="flex justify-between sm:flex-row flex-col items-center p-6">
+                        <div class="text-white border-b sm:border-r border-frame border-dotted p-4">
                             <div class="text-xl flex flex-col gap-4 items-center">
                                 <h2 class=" text-white ">Deposit (USDT)</h2>
                                 <p class="text-frame font-semibold">500-1,499</p>
@@ -203,7 +203,7 @@
                                 <p class="text-frame font-semibold">6%</p>
                             </div>
                         </div>
-                        <div class="text-white border-r border-frame border-dotted p-4">
+                        <div class="text-white border-b sm:border-r border-frame border-dotted p-4">
                             <div class="text-xl flex flex-col gap-4 items-center">
                                 <h2 class=" text-white ">Deposit (USDT)</h2>
                                 <p class="text-frame font-semibold">1500-4,999</p>
@@ -236,7 +236,7 @@
         </div>
         <div class="flex items-center justify-center flex-col bg-black2 h-fit w-full p-10 relative" id="customer">
           <h3 class="text-center font-bold mb-4 text-xl text-white uppercase">Customer Service</h3>
-          <div class="flex justify-center gap-8 items-center py-4">
+          <div class="flex justify-center md:flex-row flex-col gap-8 items-center py-4">
             <div class="flex flex-col gap-4 flex justify-center items-center">
               <div class="w-60 h-60 bg-frame flex justify-center items-center rounded-md border border-white shadow">
                 <img src="assets/telegram.png" class="w-44 h-44 object-contain" alt="hero" />
@@ -257,17 +257,35 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center justify-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative" id="faq">
+        <div class="flex items-center justify-center flex-col bg-white h-fit w-full p-10 relative" id="faq">
           <h3 class="text-center font-bold mb-4 text-lg text-gray-800">FAQ</h3>
-          <div class="flex justify-center items-center">
+          <div class="w-full flex justify-center items-center">
+            <div class="accordion">
+              @foreach ($data as $item)
+              <div class="accordionBx">
+                <div class="label">{{ $item['label'] }}</div>
+                <div class="contentB">
+                  @foreach ($item['content'] as $index => $contentItem)
+                      <p>{{ $index + 1 }}. {{ $contentItem }}</p>
+                  @endforeach
+                </div>
+              </div>
+          @endforeach
+            </div>
           </div>
         </div>
+        @include('layouts.footer')
     </div>
     <script type="text/javascript">
         const contentBx = document.querySelector('.contentBx');
         const slidesText = contentBx.querySelectorAll('.content');
         var j = 0;
-
+        const accordion = document.getElementsByClassName("accordionBx");
+      for (var i = 0; i < accordion.length; i++) {
+        accordion[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+        });
+      }
         function nextSlideText() {
             slidesText[j].classList.remove('active');
             j = (j + 1) % slidesText.length;
