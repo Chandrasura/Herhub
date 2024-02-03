@@ -83,6 +83,9 @@ Route::get('/wallet', function () {
 Route::get('/lang', function () {
     return view('user.language');
 });
+Route::get('/vips', function () {
+    return view('user.vips');
+});
 Route::get('/cslink', function () {
     return view('user.cslink');
 });
