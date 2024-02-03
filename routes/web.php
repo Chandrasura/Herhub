@@ -86,6 +86,12 @@ Route::get('/lang', function () {
 Route::get('/vips', function () {
     return view('user.vips');
 });
+Route::get('/starting', function () {
+    return view('user.start');
+});
+Route::get('/records', function () {
+    return view('user.record');
+});
 Route::get('/cslink', function () {
     return view('user.cslink');
 });
