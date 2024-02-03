@@ -19,6 +19,9 @@
             extend: {
               colors: {
                 frame: '#81219a',
+                white1: '#f2f2f2',
+                black1: '#2a2a2a',
+                black2: '#3a3a3a',
               }
             }
           }

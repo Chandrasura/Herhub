@@ -1,0 +1,67 @@
+@extends('layouts.app')
+@section('content')
+    <div class='flex min-h-screen justify-center items-center w-full bg-frame'>
+        <div class="bg-white w-4/5 h-4/5 rounded p-10 my-10 relative">
+            <div class="absolute top-8 right-10 flex items-center gap-2">
+                <i class='bx bx-world'></i>
+                <a class="underline text-sm font-semibold text-gray-800 dark:text-gray-300">Language</a>
+            </div>
+            <div class="flex flex-col items-center justify-center  p-6">
+                <div class="flex items-center justify-center mb-6">
+                    <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-full h-full object-cover">
+                </div>
+                <form class="mx-auto w-3/5">
+                    <h3 class="text-3xl text-center font-bold text-gray-800 mb-5">Welcome to Smartboost.</h3>
+                    <div class="mb-5">
+                        <label for="username"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                        <input type="text" id="username"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="jane_blow" required>
+                    </div>
+                    <div class="mb-5 relative">
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="*******" required>
+                        <i class="bx bx-show absolute text-xl bottom-2 right-4 cursor-pointer" id="toggle"></i>
+                    </div>
+         
+                    <div class="flex items-center mb-6 justify-between">
+                        <div class="flex items-center">
+                            <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember information</label>
+                        </div>
+                        <a href="/forgot-password" class="text-blue-800 dark:text-blue-400 text-sm font-semibold">Forgot password?</a>
+                    </div>
+                    <div class="flex justify-center items-center flex-col">
+                        <button type="submit" class="py-2 w-1/2 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Login</button>
+                        <p class="text-sm mt-3 font-semibold text-gray-900 dark:text-gray-300">Don't have an account? <a href="/register" class="text-blue-800 dark:text-blue-400 underline">Register</a></p>
+                    </div>
+                </form>
+                <div class="absolute bottom-2">
+                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024 Growthcurve. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function togglePasswordVisibility(inputId, toggleId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(toggleId);
+
+            toggleIcon.onclick = function () {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.classList.remove('bx-show');
+                    toggleIcon.classList.add('bx-hide');
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.classList.add('bx-show');
+                    toggleIcon.classList.remove('bx-hide');
+                }
+            };
+        }
+
+        // Call the function for each password input field
+        togglePasswordVisibility('password', 'toggle');
+    </script>
+@endsection

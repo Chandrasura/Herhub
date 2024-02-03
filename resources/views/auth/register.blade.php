@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <div class='flex min-h-screen justify-center items-center w-full bg-frame'>
-        <div class="bg-white w-3/5 h-4/5 rounded p-10 my-10 relative">
+        <div class="bg-white w-4/5 h-4/5 rounded p-10 my-10 relative">
             <div class="flex flex-col items-center justify-center p-6">
                 <div class="flex items-center justify-center mb-6">
                     <img src="{{ asset('assets/logo.png') }}" alt="logo" class="w-full h-full object-cover">
                 </div>
-                <form class="mx-auto">
+                <form class="mx-auto w-3/5">
                     <h3 class="text-3xl text-center font-bold text-gray-800 mb-5">Create your account to unlock exclusive
                         features.</h3>
                     <div class="mb-5">
