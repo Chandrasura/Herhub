@@ -1,0 +1,10 @@
+[aria-selected="true"] {
+    background-color: #84269c;
+    color: #fff;
+}
+[aria-selected="true"]:hover {
+    color: #fff;
+}
+[aria-selected="false"] {
+    color: #84269c;
+}
