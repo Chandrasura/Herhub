@@ -4,7 +4,7 @@
         <header>
             @include('layouts.header')
         </header>
-        <div class='h-fit w-full bg-gradient-to-r from-[#1B0037] to-[#4A0648] flex justify-center items-center'>
+        <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
             <div class="bg-white w-4/5 h-4/5 rounded p-10 my-10 relative">
                 <div class="flex flex-col items-center justify-center p-6">
                     <form class="w-3/5">

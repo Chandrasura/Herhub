@@ -80,3 +80,6 @@ Route::get('/withdraw', function () {
 Route::get('/wallet', function () {
     return view('user.wallet');
 });
+Route::get('/logout', function () {
+    return view('user.logout');
+});

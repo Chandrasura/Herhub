@@ -4,7 +4,7 @@
         <header>
             @include('layouts.header')
         </header>
-        <div class='h-fit w-full bg-gradient-to-r from-[#1B0037] to-[#4A0648] flex justify-center items-center'>
+        <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
             <div class="bg-white w-4/5 h-4/5 rounded p-10 my-10 relative">
                 <div class="flex flex-col items-center justify-center p-6">
                     <div class="w-3/5">
@@ -110,6 +110,7 @@
                         </div>
                         <div class="my-4">
                             <a type="button"
+                            href="/wallet"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
