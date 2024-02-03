@@ -9,7 +9,7 @@
                 <form class="mx-auto w-3/5">
                     <h4 class="text-white text-2xl text-center font-bold">Are you sure you want to log out?</h4>
                     <div class="flex justify-center gap-4 items-center flex-col mt-16">
-                        <button type="submit" class="py-2 w-3/5 bg-none border border-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Cancel</button>
+                        <button type="submit" class="py-2 w-3/5 bg-none border border-[#] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Cancel</button>
                         <button type="submit" class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Confirm</button>
                     </div>
                 </form>
