@@ -21,7 +21,7 @@
                                     <li class="w-1/2" role="presentation">
                                         <button class="py-3 px-6 w-full rounded-lg text-[#84269C]" id="profile-tab"
                                             data-tabs-target="#profile" type="button" role="tab"
-                                            aria-controls="profile" aria-selected="false">Deposits</button>
+                                            aria-controls="profile" aria-selected="false">Withdraw</button>
                                     </li>
                                     <li class="w-1/2" role="presentation">
                                         <button class="py-3 px-6 w-full rounded-lg text-[#84269C]" id="dashboard-tab"
@@ -31,12 +31,37 @@
                                 </ul>
                             </div>
                             <div id="default-tab-content" class="mt-8">
-                                <div class="hidden p-4 rounded-lg bg-frame" id="profile" role="tabpanel"
-                                    aria-labelledby="profile-tab">
-                                    <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
+                                <div class="hidden p-4" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div
+                                        class="flex rounded-lg bg-frame flex-col p-4 text-white gap-4 justify-center items-center mb-8">
                                         <p class="text-gray-300 text-lg">Total Balance</p>
-                                        <p class="text-xl">USDT 0.00</p>
+                                        <p class="text-xl">USDT 1,066.53</p>
+                                        <small>Withdrawal process usually takes 5-10 min.</small>
                                     </div>
+                                    <form class="">
+                                        <div class="font-medium text-md">
+                                            <p>Withdraw Method</p>
+                                            <p class="text-frame my-4">Withdrawal will be transferred USDT</p>
+                                        </div>
+                                        <div class="my-4">
+                                            <label for="amount"
+                                                class="block mb-2 font-medium text-black2 text-lg">Withdrawal Amount</label>
+                                            <input type="number" id="amount"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="0.00" required>
+                                        </div>
+                                        <div class="my-4">
+                                            <label for="pin"
+                                                class="block mb-2 font-medium text-black2 text-lg">Withdrawal Pin</label>
+                                            <input type="number" id="pin"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="4-digits Pin" required>
+                                        </div>
+                                        <div class="flex my-10 justify-center items-center flex-col">
+                                            <button type="submit"
+                                                class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"
                                     aria-labelledby="dashboard-tab">
@@ -47,11 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex my-20 justify-center items-center flex-col">
-                            <button type="submit"
-                                class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Customer
-                                Service</button>
-                        </div>
+                        
                     </form>
                     <div class="absolute bottom-2">
                         <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024

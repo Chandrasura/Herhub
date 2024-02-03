@@ -77,3 +77,6 @@ Route::get('/deposit', function () {
 Route::get('/withdraw', function () {
     return view('user.withdraw');
 });
+Route::get('/wallet', function () {
+    return view('user.wallet');
+});
