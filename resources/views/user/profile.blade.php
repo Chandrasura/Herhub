@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class='min-h-screen w-full'>
+    <link href="css/popup.css" rel="stylesheet" />
+    <div class='min-h-screen w-full' id="blur">
         <header>
             @include('layouts.header')
         </header>
@@ -66,8 +67,8 @@
                         <div class="my-4">
                             <a type="button" href="{{ route('pages.deposit') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(207,48,154);transform: ;msFilter:;">
                                     <path d="M14 9h8v6h-8z"></path>
                                     <path
                                         d="M20 3H5C3.346 3 2 4.346 2 6v12c0 1.654 1.346 3 3 3h15c1.103 0 2-.897 2-2v-2h-8c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h8V5c0-1.103-.897-2-2-2z">
@@ -82,8 +83,8 @@
                             <a type="button"
                             href="{{ route('pages.withdraw') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(207,48,154);transform: ;msFilter:;">
                                     <path
                                         d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm1 14.915V18h-2v-1.08c-2.339-.367-3-2.002-3-2.92h2c.011.143.159 1 2 1 1.38 0 2-.585 2-1 0-.324 0-1-2-1-3.48 0-4-1.88-4-3 0-1.288 1.029-2.584 3-2.915V6.012h2v1.109c1.734.41 2.4 1.853 2.4 2.879h-1l-1 .018C13.386 9.638 13.185 9 12 9c-1.299 0-2 .516-2 1 0 .374 0 1 2 1 3.48 0 4 1.88 4 3 0 1.288-1.029 2.584-3 2.915z">
                                     </path>
@@ -94,11 +95,10 @@
                             </a>
                         </div>
                         <div class="my-4">
-                            <a type="button"
-                            href="/vips"
+                            <a type="button" href="/vips"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(207,48,154);transform: ;msFilter:;">
                                     <path d="M16 12h2v4h-2z"></path>
                                     <path
                                         d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM5 5h13v2H5a1.001 1.001 0 0 1 0-2zm15 14H5.012C4.55 18.988 4 18.805 4 18V8.815c.314.113.647.185 1 .185h15v10z">
@@ -110,11 +110,10 @@
                             </a>
                         </div>
                         <div class="my-4">
-                            <a type="button"
-                            href="/wallet"
+                            <a type="button" href="/wallet"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(207,48,154);transform: ;msFilter:;">
                                     <path d="M14 9h8v6h-8z"></path>
                                     <path
                                         d="M20 3H5C3.346 3 2 4.346 2 6v12c0 1.654 1.346 3 3 3h15c1.103 0 2-.897 2-2v-2h-8c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h8V5c0-1.103-.897-2-2-2z">
@@ -129,8 +128,8 @@
                             <a type="button"
                             href="{{ route('pages.support') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(207,48,154);transform: ;msFilter:;">
                                     <path
                                         d="M8 12.052c1.995 0 3.5-1.505 3.5-3.5s-1.505-3.5-3.5-3.5-3.5 1.505-3.5 3.5 1.505 3.5 3.5 3.5zM9 13H7c-2.757 0-5 2.243-5 5v1h12v-1c0-2.757-2.243-5-5-5zm9.364-10.364L16.95 4.05C18.271 5.373 19 7.131 19 9s-.729 3.627-2.05 4.95l1.414 1.414C20.064 13.663 21 11.403 21 9s-.936-4.663-2.636-6.364z">
                                     </path>
@@ -147,8 +146,8 @@
                             <a type="button"
                             href="/lang"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(207,48,154);transform: ;msFilter:;">
                                     <path
                                         d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zM4 12c0-.899.156-1.762.431-2.569L6 11l2 2v2l2 2 1 1v1.931C7.061 19.436 4 16.072 4 12zm14.33 4.873C17.677 16.347 16.687 16 16 16v-1a2 2 0 0 0-2-2h-4v-3a2 2 0 0 0 2-2V7h1a2 2 0 0 0 2-2v-.411C17.928 5.778 20 8.65 20 12a7.947 7.947 0 0 1-1.67 4.873z">
                                     </path>
@@ -184,4 +183,38 @@
         </div>
         @include('layouts.footer')
     </div>
+    <div id="popup">
+        <a href="#" id="close">X</a>
+        <div class="flex justify-center items-center flex-col gap-6">
+            <div class="w-24 h-24 relative">
+                <img src="assets/congrat.png" class="w-full h-full object-cover" />
+            </div>
+            <div class="w-full text-xl flex justify-center items-center flex-col">
+                <h3 class="uppercase font-bold text-2xl mb-6">Congratulations!</h3>
+                <p>You have just received </p>
+                <span class="text-blue-400 text-center">28 USDT</span>
+                <p>as a new member reward</p>
+            </div>
+        </div>
+        <div class="absolute bottom-2 left-1/4">
+            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
+                Growthcurve. All Rights Reserved</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let popup = document.getElementById('popup');
+            let close = document.getElementById('close');
+            let blur = document.getElementById('blur');
+            console.log(blur, popup);
+
+            function toggle() {
+                popup.classList.toggle('active');
+                blur.classList.toggle('active');
+            }
+
+            toggle();
+            close.addEventListener('click', toggle);
+        });
+    </script>
 @endsection
