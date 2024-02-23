@@ -190,7 +190,7 @@
         </div>
         @include('layouts.footer')
     </div>
-    <div id="popup">
+    <div id="popup" class="md:w-[600px]">
         <a href="#" id="close">X</a>
         <div class="flex justify-center items-center flex-col gap-6">
             <div class="w-24 h-24 relative">
@@ -203,7 +203,7 @@
                 <p>as a new member reward</p>
             </div>
         </div>
-        <div class="absolute bottom-2 left-1/4">
+        <div class="absolute bottom-2 left-8 md:left-1/4">
             <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
                 Growthcurve. All Rights Reserved</p>
         </div>
@@ -214,7 +214,6 @@
             let popup = document.getElementById('popup');
             let close = document.getElementById('close');
             let blur = document.getElementById('blur');
-            console.log(blur, popup);
 
             function toggle() {
                 popup.classList.toggle('active');
