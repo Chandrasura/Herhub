@@ -15,18 +15,18 @@
                         </div>
                         <div class="my-4 flex gap-4 items-center">
                             <div>
-                                <img src="assets/avatar.png" class="border border-blue-400 w-32 h-32 rounded-full mx-auto"
+                                <img src="{{ asset('assets/avatar.png') }}" class="border border-blue-400 w-32 h-32 rounded-full mx-auto"
                                     alt="avatar" />
                             </div>
                             <div class="flex gap-3 items-center">
-                                <p class="text-xl font-semibold mt-4">EXCLUSIVE - 032</p>
+                                <p class="text-xl font-semibold mt-4">{{ $user->username }}</p>
                                 <img src="assets/vip1.png" class="w-6 h-6 translate-y-2 object-contain" alt="line" />
                             </div>
                         </div>
                         <div class="bg-frame text-white p-6 h-fit w-full rounded-lg">
                             <div class="flex text-lg justify-between items-center">
                                 <p>Invitation Code</p>
-                                <p>JHER45</p>
+                                <p>{{ $user->referral_code }}</p>
                             </div>
                             <div class="flex text-lg justify-between items-center mt-4">
                                 <p>Credit Score</p>
@@ -43,11 +43,11 @@
                             </div>
                             <div class="flex text-lg gap-4 flex-col">
                                 <p class="text-gray-300">Total Balance</p>
-                                <p>USDT 1,066.53</p>
+                                <p>USDT {{ number_format($user->balance, 2) }}</p>
                             </div>
                         </div>
                         <div class="my-4">
-                            <a href="/set" type="button"
+                            <a href="{{ route('user.info') }}" type="button"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     style="fill: rgba(207,48,154);transform: ;msFilter:;">
@@ -64,7 +64,7 @@
                             </a>
                         </div>
                         <div class="my-4">
-                            <a type="button" href="deposit"
+                            <a type="button" href="{{ route('pages.deposit') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="my-4">
                             <a type="button"
-                            href="withdraw"
+                            href="{{ route('pages.withdraw') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
@@ -127,7 +127,7 @@
                         </div>
                         <div class="my-4">
                             <a type="button"
-                            href="/cslink"
+                            href="{{ route('pages.support') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
@@ -143,7 +143,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div class="my-4">
+                        {{-- <div class="my-4">
                             <a type="button"
                             href="/lang"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
@@ -157,10 +157,10 @@
                                     Language
                                 </span>
                             </a>
-                        </div>
+                        </div> --}}
                         <div class="my-4">
                             <a type="button"
-                            href="/logout"
+                            href="{{ route('pages.logout') }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" style="fill: rgba(207,48,154);transform: ;msFilter:;">
@@ -177,7 +177,7 @@
                     </div>
                     <div class="absolute bottom-2">
                         <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
-                            Growthcurve. All Rights Reserved</p>
+                            Westmetric. All Rights Reserved</p>
                     </div>
                 </div>
             </div>

@@ -35,7 +35,7 @@
                                     aria-labelledby="profile-tab">
                                     <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
                                         <p class="text-gray-300 text-lg">Total Balance</p>
-                                        <p class="text-xl">USDT 0.00</p>
+                                        <p class="text-xl">USDT {{ $user->balance }}</p>
                                     </div>
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"
@@ -48,14 +48,12 @@
                             </div>
                         </div>
                         <div class="flex my-20 justify-center items-center flex-col">
-                            <button type="submit"
-                                class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Customer
-                                Service</button>
+                            <a type="button" href="{{ route('pages.support') }}" class="text-center py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Customer Service</a>
                         </div>
                     </form>
                     <div class="absolute bottom-2">
                         <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
-                            Growthcurve. All Rights Reserved</p>
+                            Westmetric. All Rights Reserved</p>
                     </div>
                 </div>
             </div>

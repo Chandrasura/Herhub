@@ -13,28 +13,15 @@
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Customer Service Lists</h3>
                             <i class='text-xl'></i>
                         </div>
+                        @foreach ($supports as $support)
                         <div class="my-4">
-                            <button type="button"
-                                class="bg-none border border-black transition font-medium rounded-lg text-lg px-5 py-4 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                Telegram Service 1
-                            </button>
+                            <a type="button" href="{{ $support->link }}" target="_blank" class="bg-none border border-black transition font-medium rounded-lg text-lg px-5 py-4 w-full text-black text-center inline-flex items-center me-2 mb-2">{{ $support->name }}</a>
                         </div>
-                        <div class="my-4">
-                            <button type="button"
-                                class="bg-none border border-black transition font-medium rounded-lg text-lg px-5 py-4 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                Telegram Service 2
-                            </button>
-                        </div>
-                        <div class="my-4">
-                            <button type="button"
-                                class="bg-none border border-black transition font-medium rounded-lg text-lg px-5 py-4 w-full text-black text-center inline-flex items-center me-2 mb-2">
-                                Telegram Service 3
-                            </button>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="absolute bottom-2">
                         <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
-                            Growthcurve. All Rights Reserved</p>
+                            Westmetric. All Rights Reserved</p>
                     </div>
                 </div>
             </div>
