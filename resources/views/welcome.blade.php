@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <link href="css/slide.css" rel="stylesheet" />
-    <div class='min-h-screen w-full'>
+    <link href="css/popup.css" rel="stylesheet" />
+    <div class='min-h-screen w-full'id="blur">
         <header>
             @include('layouts.header')
         </header>
@@ -18,6 +19,7 @@
                     <img src="assets/bg-1.png" class="w-4/5 h-4/5 object-contain" alt="hero" />
                 </div>
             </div>
+            @include('layouts.start')
         </div>
         <div class="flex items-center md:flex-row flex-col bg-white h-fit w-full p-10" id="about">
             <div class="flex w-full md:w-1/2 justify-center items-center">
@@ -141,59 +143,97 @@
                     </div>
                 </div>
                 <div class="mt-2 flex justify-center items-center">
-                  <p class="text-black2 text-lg"><b>Note:</b> The activity reward is limited to the first of the reset task to receive.</p>
+                    <p class="text-black2 text-lg"><b>Note:</b> The activity reward is limited to the first of the reset
+                        task to receive.</p>
                 </div>
             </div>
         </div>
         <div class="flex items-center justify-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative" id="certificate">
-          <h3 class="text-center font-bold mb-4 text-lg text-gray-800">CERTIFICATE</h3>
-          <div class="flex justify-center items-center">
-            <img src="assets/certificate.png" class="w-2/3 h-2/3 object-contain" alt="hero" />
-          </div>
+            <h3 class="text-center font-bold mb-4 text-lg text-gray-800">CERTIFICATE</h3>
+            <div class="flex justify-center items-center">
+                <img src="assets/certificate.png" class="w-2/3 h-2/3 object-contain" alt="hero" />
+            </div>
         </div>
         <div class="flex items-center justify-center flex-col bg-black2 h-fit w-full p-10 relative" id="customer">
-          <h3 class="text-center font-bold mb-4 text-xl text-white uppercase">Customer Service</h3>
-          <div class="flex justify-center md:flex-row flex-col gap-8 items-center py-4">
-            @foreach ($supports as $support)
-            <div class="flex flex-col gap-4 flex justify-center items-center">
-                <div class="w-60 h-60 bg-frame flex justify-center items-center rounded-md border border-white shadow">
-                  <img src="{{ asset('assets/telegram.png') }}" class="w-44 h-44 object-contain" alt="hero" />
-                </div>
-                <a href="{{ $support->link }}" target="_blank" class="underline text-white text-xl">{{ $support->name }}</a>
-              </div>
-            @endforeach
+            <h3 class="text-center font-bold mb-4 text-xl text-white uppercase">Customer Service</h3>
+            <div class="flex justify-center md:flex-row flex-col gap-8 items-center py-4">
+                @foreach ($supports as $support)
+                    <div class="flex flex-col gap-4 flex justify-center items-center">
+                        <div
+                            class="w-60 h-60 bg-frame flex justify-center items-center rounded-md border border-white shadow">
+                            <img src="{{ asset('assets/telegram.png') }}" class="w-44 h-44 object-contain"
+                                alt="hero" />
+                        </div>
+                        <a href="{{ $support->link }}" target="_blank"
+                            class="underline text-white text-xl">{{ $support->name }}</a>
+                    </div>
+                @endforeach
 
-          </div>
+            </div>
         </div>
         <div class="flex items-center justify-center flex-col bg-white h-fit w-full p-10 relative" id="faq">
-          <h3 class="text-center font-bold mb-4 text-lg text-gray-800">FAQ</h3>
-          <div class="w-full flex justify-center items-center">
-            <div class="accordion">
-              @foreach ($data as $item)
-              <div class="accordionBx">
-                <div class="label">{{ $item['label'] }}</div>
-                <div class="contentB">
-                  @foreach ($item['content'] as $index => $contentItem)
-                      <p>{{ $index + 1 }}. {{ $contentItem }}</p>
-                  @endforeach
+            <h3 class="text-center font-bold mb-4 text-lg text-gray-800">FAQ</h3>
+            <div class="w-full flex justify-center items-center">
+                <div class="accordion">
+                    @foreach ($data as $item)
+                        <div class="accordionBx">
+                            <div class="label">{{ $item['label'] }}</div>
+                            <div class="contentB">
+                                @foreach ($item['content'] as $index => $contentItem)
+                                    <p>{{ $index + 1 }}. {{ $contentItem }}</p>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-              </div>
-          @endforeach
             </div>
-          </div>
         </div>
         @include('layouts.footer')
     </div>
+    <div id="popup">
+        <a href="#" id="close">X</a>
+        <div class="flex justify-center items-center flex-col gap-6">
+            <div class="w-24 h-24 relative">
+                <img src="assets/congrat.png" class="w-full h-full object-cover" />
+            </div>
+            <div class="w-full text-xl flex justify-center items-center flex-col">
+                <h3 class="uppercase font-bold text-2xl mb-6">Congratulations!</h3>
+                <p>You have just received </p>
+                <span class="text-blue-400 text-center">28 USDT</span>
+                <p>as a new member reward</p>
+            </div>
+        </div>
+        <div class="absolute bottom-2 left-1/4">
+            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
+                Growthcurve. All Rights Reserved</p>
+        </div>
+    </div>
+
     <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            let popup = document.getElementById('popup');
+            let close = document.getElementById('close');
+            let blur = document.getElementById('blur');
+            console.log(blur, popup);
+
+            function toggle() {
+                popup.classList.toggle('active');
+                blur.classList.toggle('active');
+            }
+
+            toggle();
+            close.addEventListener('click', toggle);
+        });
         const contentBx = document.querySelector('.contentBx');
         const slidesText = contentBx.querySelectorAll('.content');
         var j = 0;
         const accordion = document.getElementsByClassName("accordionBx");
-      for (var i = 0; i < accordion.length; i++) {
-        accordion[i].addEventListener("click", function () {
-          this.classList.toggle("active");
-        });
-      }
+        for (var i = 0; i < accordion.length; i++) {
+            accordion[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+            });
+        }
+
         function nextSlideText() {
             slidesText[j].classList.remove('active');
             j = (j + 1) % slidesText.length;

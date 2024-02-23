@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <link href="css/popup.css" rel="stylesheet" />
-    <div class='min-h-screen w-full' id="blur">
+   
+    <div class='min-h-screen w-full'>
         <header>
             @include('layouts.header')
         </header>
@@ -183,38 +183,5 @@
         </div>
         @include('layouts.footer')
     </div>
-    <div id="popup">
-        <a href="#" id="close">X</a>
-        <div class="flex justify-center items-center flex-col gap-6">
-            <div class="w-24 h-24 relative">
-                <img src="assets/congrat.png" class="w-full h-full object-cover" />
-            </div>
-            <div class="w-full text-xl flex justify-center items-center flex-col">
-                <h3 class="uppercase font-bold text-2xl mb-6">Congratulations!</h3>
-                <p>You have just received </p>
-                <span class="text-blue-400 text-center">28 USDT</span>
-                <p>as a new member reward</p>
-            </div>
-        </div>
-        <div class="absolute bottom-2 left-1/4">
-            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
-                Growthcurve. All Rights Reserved</p>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let popup = document.getElementById('popup');
-            let close = document.getElementById('close');
-            let blur = document.getElementById('blur');
-            console.log(blur, popup);
-
-            function toggle() {
-                popup.classList.toggle('active');
-                blur.classList.toggle('active');
-            }
-
-            toggle();
-            close.addEventListener('click', toggle);
-        });
-    </script>
+ 
 @endsection
