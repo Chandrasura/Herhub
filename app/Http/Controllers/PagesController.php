@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Support;
+use App\Models\Settings;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
@@ -116,8 +117,12 @@ class PagesController extends Controller
         $request->validate([
             'withdrawal_amount' => [
                 'required', 'numeric', 'gt:0', function($attribute, $value, $fail) use($user) {
+                    $minimum_withdrawal = Settings::where('key', 'minimum_withdrawal')->first();
+                    
                     if ($value > $user->balance) {
                         $fail("The withdawal amount is greater than your balance");
+                    } else if($value < $minimum_withdrawal){
+                        $fail("The minimum withdrawal is USDT $minimum_withdrawal->value");
                     }
                 }
             ],

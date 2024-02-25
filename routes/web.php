@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/support', [AdminController::class, 'storeSupport'])->name('admin.support.store');    
             Route::get('/pending-withdrawal', [AdminController::class, 'pendingWithdrawal'])->name('admin.withdraw');    
             Route::put('/pending-withdrawal/{id}/{action}', [AdminController::class, 'pendingWithdrawalAction'])->name('admin.withdraw.action');
+            Route::put('/minimum-withdrawal', [AdminController::class, 'updateMinimumWithdrawal'])->name('admin.withdraw.minimum');
         });
     });
 

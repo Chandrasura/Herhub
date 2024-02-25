@@ -2,23 +2,18 @@
 
 @section('content')
 <div class="row">
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>{{ session('success') }}</strong>
+    <form action="{{ route('admin.withdraw.minimum') }}" method="POST" class="col-sm-6 col-md-4">
+        @csrf
+        @method('put')
+        <div>
+            <label for="minimum_withdrawal" class="form-label">Minimum Withdrawal</label>
+            <input type="number" id="minimum_withdrawal" name="minimum_withdrawal" value="{{ $minimum_withdrawal->value }}" class="form-control">
+            @error('minimum_withdrawal')
+                <strong class="text-danger">{{ $message }}</strong>
+            @enderror
         </div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>{{ session('error') }}</strong>
-        </div>
-    @endif
-
+        <input type="submit" class="mt-3 btn btn-success" value="Update">
+    </form>
 </div>
 
   <div class="row mt-5">

@@ -190,6 +190,8 @@
         </div>
         @include('layouts.footer')
     </div>
+
+    @if (session('user_registered'))
     <div id="popup" class="md:w-[600px]">
         <a href="#" id="close">X</a>
         <div class="flex justify-center items-center flex-col gap-6">
@@ -205,9 +207,10 @@
         </div>
         <div class="absolute bottom-2 left-8 md:left-1/4">
             <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
-                Growthcurve. All Rights Reserved</p>
+                Westmetric. All Rights Reserved</p>
         </div>
     </div>
+    @endif
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {

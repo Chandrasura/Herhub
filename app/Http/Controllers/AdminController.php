@@ -6,6 +6,7 @@ use Exception;
 use App\Models\User;
 use App\Models\Deposit;
 use App\Models\Support;
+use App\Models\Settings;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -67,9 +68,22 @@ class AdminController extends Controller
 
     }
 
+    public function updateMinimumWithdrawal(Request $request){
+        $request->validate([
+            'minimum_withdrawal' => 'required|integer|gt:0'
+        ]);
+
+        Settings::updateOrCreate([
+            'key' => 'minimum_withdrawal',
+        ], ['value' => $request->minimum_withdrawal]);
+
+        return redirect()->back()->with('success', 'Minimum withdrawal updated successfully');
+    }
+
     public function pendingWithdrawal(){
+        $minimum_withdrawal = Settings::where('key', 'minimum_withdrawal')->first();
         $pending = Withdraw::where('status', 'pending')->orderBy('created_at', 'DESC')->get();
-        return view('admin.pages.withdraw', compact(['pending']));
+        return view('admin.pages.withdraw', compact(['pending', 'minimum_withdrawal']));
     }
 
     public function pendingWithdrawalAction($id, $action){
@@ -97,7 +111,7 @@ class AdminController extends Controller
                 return redirect()->back()->with('error', 'Something went wrong...');
             }
         } else {
-            return redirect()->back()->with('success', 'No action specified');
+            return redirect()->back()->with('error', 'No action specified');
         }
 
     }

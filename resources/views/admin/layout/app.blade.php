@@ -246,7 +246,26 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        
+        <div class="row">
+          @if (session('success'))
+              <div class="col alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>{{ session('success') }}</strong>
+              </div>
+          @endif
+          @if (session('error'))
+              <div class="col alert alert-danger alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>{{ session('error') }}</strong>
+              </div>
+          @endif
+      
+      </div>
+      
         @yield('content')
        
       </div><!-- /.container-fluid -->
