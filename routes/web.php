@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/personal-info', [UserController::class, 'updatePersonalInfo'])->name('user.info.update');
 
     Route::get('/deposit', [PagesController::class, 'deposit'])->name('pages.deposit');
+     Route::get('/terms', [PagesController::class, 'terms'])->name('pages.terms');
     Route::get('/cslink', [PagesController::class, 'support'])->name('pages.support');
     Route::get('/wallet', [PagesController::class, 'wallet'])->name('pages.wallet');
     Route::put('/wallet', [PagesController::class, 'updateWallet'])->name('pages.wallet.update');

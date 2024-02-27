@@ -167,6 +167,68 @@ class PagesController extends Controller
 
         return redirect()->back()->with('success', 'Withdrawal placed successfully!!!');
     }
+    public function terms(){
+       $terms =[
+        [
+            'term'=>'To submit tasks and reset the account, you must complete all ratings first, and the minimum reset amount is 100USDT'
+        ],
+        [
+            'term'=>'If you need to reset your account, you must contact our online customer service to reset your account after you have completed all your tasks and withdraw your money.'
+        ],
+        [
+            'term'=>'User withdrawals and system withdrawal requirements/security of user funds.'
+        ],
+        [
+            'term'=>'Each users needs to complete all the tasks before they can meet the system withdrawal requirements.'
+        ],
+        [
+            'term'=>'To avoid any loss of funds, all withdrawals are processed automatically by the system and not manually.'
+        ],
+        [
+            'term'=>"Users' funds are completely safe on the Platform and the Platform will be liable for any accidental loss."
+        ],
+        [
+            'term'=>'Please do not disclose your account password and security code to others. The platform will not be held responsible for any loss or damage caused.'
+        ],
+        [
+            'term'=>"All users are advised to keep their accounts secure to avoid disclosure."
+        ],
+        [
+            'term'=>"The Platform is not responsible for any accidental disclosure of accounts."
+        ],
+        [
+            'term'=>"Because of the financial implications of the accounts, it is important not to disclose them to avoid unnecessary problems."
+        ],
+        [
+            'term'=>"Security code: It is recommended that you do not set a birthday password, ID card number, mobile phone number, etc. It is recommended that you set a more difficult password to protect your funds."
+        ],
+        [
+            'term'=>"If you forget your password, you can reset it by contacting online customer service and be sure to change it yourself afterwards."
+        ],
+        [
+            'term'=>"Tasks are randomly assigned by the system and therefore cannot be changed, cancelled, controlled or skipped in any way."
+        ],
+        [
+            'term'=>"Due to the large number of users on the platform, it is impossible to manually distribute group purchase items, so all product items are distributed randomly by the system."
+        ],
+        [
+            'term'=>"Activation of products/combination products are randomly released by the system and cannot be changed/cancelled/skipped by any user/staff."
+        ],
+        [
+            'term'=>"Legal action will be taken in the event of misuse of the account."
+        ],
+        [
+            'term'=>"Each item comes from a different merchant, no deposit for more than 10 minutes, and each deposit must be made with the online customer service to confirm the merchant's USDT address."
+        ],
+        [
+            'term'=>"The platform will not be held responsible for any deposits made to the wrong account."
+        ],
+        [
+            'term'=>"For each time activation of task, the user is required to complete it within 8 hours, if it is not completed without notifying the merchant to apply for a time extension, resulting in complaints from the merchant, the user is liable for breach of contract."
+        ],
+       ];
+        return view('user.terms', compact(['terms']));
+    }
 
     public function logout(){
         return view('user.logout');
@@ -183,12 +245,12 @@ class PagesController extends Controller
     public function task(Request $request){
         $user = Auth::user();
 
-        // $pending_tasks = Task::where('user_id', $user->id)->where('status', 'pending')->get();
-        // if(count($pending_tasks) > 0){
-        //     return response([
-        //         'error' => 'You have pending task to attend to!!!'
-        //     ]);
-        // }
+        $pending_tasks = Task::where('user_id', $user->id)->where('status', 'pending')->get();
+        if(count($pending_tasks) > 0){
+            return response([
+                'error' => 'You have pending task to attend to!!!'
+            ]);
+        }
 
         $today_tasks = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
 
