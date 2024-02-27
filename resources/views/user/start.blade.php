@@ -23,8 +23,8 @@
                                     <div
                                         class="flex items-center md:flex-row flex-col justify-center gap-4 md:gap-16 font-bold text-white text-2xl">
                                         <h3 class="">Starting</h3>
-                                        <p class="uppercase flex gap-2">Exclusive - 032 <img src="assets/vips2.png"
-                                                class="w-6 h-6 translate-y-2 object-contain" alt="line" /></p>
+                                        <p class="uppercase flex gap-2">{{ $user->username }} <img src="{{ asset('uploads/images/vips/' . $user->vip->image) }}"
+                                                class="w-6 h-6 translate-y-2 object-contain" alt="{{ $user->username }}" /></p>
                                     </div>
                                     <div class="flex flex-col gap-4 mt-10">
                                         <div class="flex gap-4">
@@ -33,7 +33,7 @@
                                             </div>
                                             <div class="text-sm">
                                                 <p>Today's Profit</p>
-                                                <p class="text-[#1ABBF9]">USDT 0.00</p>
+                                                <p class="text-[#1ABBF9]">USDT {{ number_format($profit, 2) }}</p>
                                             </div>
                                         </div>
                                         <p class="text-white text-sm mx-1">Daily profits will be updated automatically</p>
@@ -46,12 +46,12 @@
                                                 </div>
                                                 <div class="text-sm">
                                                     <p>Balance</p>
-                                                    <p class="text-[#1ABBF9]">USDT 1,072.65</p>
+                                                    <p class="text-[#1ABBF9]">USDT {{ number_format($user->available_balance, 2) }}</p>
                                                 </div>
                                             </div>
                                             <div class="text-sm">
                                                 <p>Total Balance</p>
-                                                <p class="text-[#1ABBF9]">USDT 1,072.65</p>
+                                                <p class="text-[#1ABBF9]">USDT {{ number_format($user->total_balance, 2) }}</p>
                                             </div>
                                         </div>
                                         <p class="text-white text-sm mx-1">Every tasks profit will be added to the total
@@ -64,7 +64,7 @@
                             <div class="h-32 w-32 bg-[#2490E2] rounded-full text-white p-4 flex justify-center items-center gap-4 flex-col cursor-pointer"
                                 id="game">
                                 <p>Starting Now</p>
-                                <p>17 / 45</p>
+                                <p>{{ $task }} / {{ $user->vip->orders_per_day }}</p>
                             </div>
                         </div>
                     </div>

@@ -35,7 +35,7 @@
                                     <div
                                         class="flex rounded-lg bg-frame flex-col p-4 text-white gap-4 justify-center items-center mb-8">
                                         <p class="text-gray-300 text-lg">Total Balance</p>
-                                        <p class="text-xl">USDT {{ number_format($user->balance, 2) }}</p>
+                                        <p class="text-xl">USDT {{ number_format($user->available_balance, 2) }}</p>
                                         <small>Withdrawal process usually takes 5-10 min.</small>
                                     </div>
                                     <form class="{{ route('pages.withdraw.store') }}" method="post">

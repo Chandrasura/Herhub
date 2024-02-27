@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Vip;
+use App\Models\Profit;
 use App\Models\Support;
 use App\Models\Settings;
 use App\Models\Withdraw;
@@ -11,6 +13,7 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -123,8 +126,8 @@ class PagesController extends Controller
                 'required', 'numeric', 'gt:0', function($attribute, $value, $fail) use($user) {
                     $minimum_withdrawal = Settings::where('key', 'minimum_withdrawal')->first();
                     
-                    if ($value > $user->balance) {
-                        $fail("The withdawal amount is greater than your balance");
+                    if ($value > $user->available_balance) {
+                        $fail("The withdawal amount is greater than your available balance");
                     } else if($value < $minimum_withdrawal){
                         $fail("The minimum withdrawal is USDT $minimum_withdrawal->value");
                     }
@@ -150,7 +153,8 @@ class PagesController extends Controller
             ]);
 
             $user->update([
-                'balance' => $user->balance - $amount
+                'available_balance' => $user->available_balance - $amount,
+                'total_balance' => $user->total_balance - $amount
             ]);
 
             DB::commit();
@@ -165,5 +169,13 @@ class PagesController extends Controller
 
     public function logout(){
         return view('user.logout');
+    }
+
+    public function starting(){
+        $user = Auth::user();
+        $profit = Profit::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->sum('amount');
+        $task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
+
+        return view('user.start', compact(['user', 'profit', 'task']));
     }
 }

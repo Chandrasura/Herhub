@@ -37,15 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/withdraw', [PagesController::class, 'withdraw'])->name('pages.withdraw');
     Route::post('/withdraw', [PagesController::class, 'storeWithdraw'])->name('pages.withdraw.store');
     Route::get('/logout', [PagesController::class, 'logout'])->name('pages.logout');
+    Route::get('/starting', [PagesController::class, 'starting'])->name('pages.starting');
 
     // Route::get('/lang', function () {
     //     return view('user.language');
     // });
     Route::get('/vips', function () {
         return view('user.vips');
-    });
-    Route::get('/starting', function () {
-        return view('user.start');
     });
     Route::get('/records', function () {
         return view('user.record');

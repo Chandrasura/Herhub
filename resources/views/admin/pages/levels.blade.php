@@ -14,7 +14,7 @@
                 @enderror
             </div>
             <div class="col-6 mb-3">
-                <label for="vip_amount">VIP Minimum Amount</label>
+                <label for="vip_amount">VIP Amount</label>
                 <input type="number" id="vip_amount" name="vip_amount" value="{{ old('vip_amount') }}" class="form-control">
                 @error('vip_amount')
                     <strong class="text-danger">{{ $message }}</strong>
@@ -82,7 +82,7 @@
                                         aria-label="Rendering engine: activate to sort column descending">Name
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Minimum Amount
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Orders per day
@@ -130,7 +130,7 @@
                                         aria-label="Rendering engine: activate to sort column descending">Name
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Minimum Amount
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Orders per day
