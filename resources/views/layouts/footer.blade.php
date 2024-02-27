@@ -9,7 +9,7 @@
                         <img src="{{asset('assets/logo2.png')}}" alt="logo" class="object-contain" />
                         <ul class="text-white font-medium">
                             <li class="mb-4">
-                                <p>Copyright © 2024 Westmetric.</p>
+                                <p>Copyright © 2022 Westmetric.</p>
                                 <p> All Rights Reserved</p>
                             </li>
                         </ul>
