@@ -12,7 +12,7 @@
                     <h1 class="text-3xl font-normal text-white">Welcome</h1>
                     <div class="flex gap-4 items-center">
                         <p class="text-3xl font-semibold mt-4">{{ $user->username }}</p>
-                        <img src="{{ asset('assets/vip1.png') }}" class="w-10 h-10 translate-y-2 object-contain" alt="line" />
+                        <img src="{{ asset('uploads/images/vips/' . $user->vip->image) }}" class="w-10 h-10 translate-y-2 object-contain" alt="{{ $user->username }}" />
                     </div>
                 </div>
                 <div class="flex justify-center items-center w-full md:w-1/2">

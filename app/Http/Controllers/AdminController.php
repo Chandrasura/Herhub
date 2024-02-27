@@ -39,7 +39,8 @@ class AdminController extends Controller
 
             $user = User::where('id', $request->user)->first();
             $user->update([
-                'balance' => $user->balance + round($request->amount, 2)
+                'availabe_balance' => $user->available_balance + round($request->amount, 2),
+                'total_balance' => $user->total_balance + round($request->amount, 2)
             ]);
             DB::commit();
         } catch(Exception $e){
@@ -100,7 +101,8 @@ class AdminController extends Controller
                 DB::beginTransaction();
                 $user = User::where('id', $withdraw->user_id)->first();
                 $user->update([
-                    'balance' => $user->balance + $withdraw->amount
+                    'available_balance' => $user->available_balance + $withdraw->amount,
+                    'total_balance' => $user->total_balance + $withdraw->amount
                 ]);
                 $withdraw->update([
                     'status' => 'rejected',

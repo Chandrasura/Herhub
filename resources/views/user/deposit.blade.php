@@ -35,7 +35,7 @@
                                     aria-labelledby="profile-tab">
                                     <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
                                         <p class="text-gray-300 text-lg">Total Balance</p>
-                                        <p class="text-xl">USDT {{ $user->balance }}</p>
+                                        <p class="text-xl">USDT {{ $user->available_balance }}</p>
                                     </div>
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"

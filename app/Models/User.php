@@ -25,7 +25,8 @@ class User extends Authenticatable
         'gender',
         'withdrawal_pin',
         'referral_code',
-        'balance',
+        'available_balance',
+        'total_balance',
         'wallet_address'
     ];
 
@@ -47,4 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function vip(){
+        return $this->belongsTo(Vip::class);
+    }
 }

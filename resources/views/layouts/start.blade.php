@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="/css/start.css">
+<link rel="stylesheet" href="{{ asset('css/start.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     crossorigin="anonymous" />
 <div class="menu-wrapper">
     <div class="menu">
         <div class="toggle">
-            <a href="/starting">
+            <a href="{{ route('pages.starting') }}">
                 <ion-icon name="cart-outline"></ion-icon>
             </a>
         </div>

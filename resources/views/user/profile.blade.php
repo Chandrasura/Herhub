@@ -46,7 +46,7 @@
                             </div>
                             <div class="flex text-lg gap-4 flex-col">
                                 <p class="text-gray-300">Total Balance</p>
-                                <p>USDT {{ number_format($user->balance, 2) }}</p>
+                                <p>USDT {{ number_format($user->available_balance, 2) }}</p>
                             </div>
                         </div>
                         <div class="my-4">

@@ -24,6 +24,7 @@ class UsersTableSeeder extends Seeder
                 'id' => 1,
                 'role' => 'admin',
                 'name' => 'Default User',
+                'vip_id' => 1,
                 'username' => 'default_user',
                 'phone' => '123456789',
                 'gender' => 'male',

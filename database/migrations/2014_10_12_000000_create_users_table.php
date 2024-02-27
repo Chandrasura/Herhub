@@ -17,18 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('role')->default('user');
             $table->string('name');
-            // $table->string('email')->unique();
             $table->string('username')->unique();
+            $table->bigInteger('vip_id')->unsigned()->nullable();
             $table->string('phone')->unique();
             $table->string('gender');
             $table->string('withdrawal_pin');
             $table->string('referral_code')->unique();
-            $table->float('balance')->default(0.00);
+            $table->float('available_balance')->default(0.00);
+            $table->float('total_balance')->default(0.00);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('wallet_address')->nullable();
             $table->rememberToken();
+            $table->foreign('vip_id')->references('id')->on('vips')->onDelete('set null');
             $table->timestamps();
+
         });
     }
 
