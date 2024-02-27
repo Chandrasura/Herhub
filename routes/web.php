@@ -38,6 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/withdraw', [PagesController::class, 'storeWithdraw'])->name('pages.withdraw.store');
     Route::get('/logout', [PagesController::class, 'logout'])->name('pages.logout');
     Route::get('/starting', [PagesController::class, 'starting'])->name('pages.starting');
+    Route::post('/task', [PagesController::class, 'task'])->name('pages.task');
+    Route::put('/task', [PagesController::class, 'submitTask'])->name('pages.task.submit');
+
 
     // Route::get('/lang', function () {
     //     return view('user.language');

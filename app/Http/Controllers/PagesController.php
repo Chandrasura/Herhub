@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Vip;
+use App\Models\Task;
 use App\Models\Profit;
+use App\Models\Product;
 use App\Models\Support;
 use App\Models\Settings;
 use App\Models\Withdraw;
@@ -13,7 +15,6 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -175,7 +176,65 @@ class PagesController extends Controller
         $user = Auth::user();
         $profit = Profit::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->sum('amount');
         $task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
+        $products = Product::where('amount', '<', $user->available_balance)->get();
+        return view('user.start', compact(['user', 'profit', 'task', 'products']));
+    }
 
-        return view('user.start', compact(['user', 'profit', 'task']));
+    public function task(Request $request){
+        $user = Auth::user();
+
+        // $pending_tasks = Task::where('user_id', $user->id)->where('status', 'pending')->get();
+        // if(count($pending_tasks) > 0){
+        //     return response([
+        //         'error' => 'You have pending task to attend to!!!'
+        //     ]);
+        // }
+
+        $today_tasks = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
+
+        if($today_tasks == $user->vip->orders_per_day){
+            return response([
+                'error' => 'You have completed the task for today.'
+            ]);
+        }
+
+        $product = Product::find($request->product);
+        $task = Task::create([
+            'product_id' => $product->id,
+            'user_id' => $user->id
+        ]);
+
+        $user->update([
+            'available_balance' => $user->available_balance - $product->amount
+        ]); 
+
+        return response([
+            'task' => $task->id
+        ]);
+    }
+
+    public function submitTask(Request $request){
+        $user = Auth::user();
+
+        $task = Task::find($request->task);
+        $task->update([
+            'status' => 'successful'
+        ]);
+
+        $profit = round((($user->vip->percentage_profit / 100) * $task->product->amount), 2);
+
+        Profit::create([
+            'user_id' => $user->id,
+            'task_id' => $task->id,
+            'amount' => $profit
+        ]);
+
+        $user->update([
+            'available_balance' => $user->available_balance + $task->product->amount + $profit,
+            'total_balance' => $user->total_balance + $profit
+        ]);
+
+        return redirect()->back()->with('success', 'Task submitted successfully!!!');
+
     }
 }
