@@ -35,20 +35,22 @@
                             </li>
                         </ul>
                     </div>
+                    @php
+                    use App\Models\Support;
+                    $supports = Support::orderBy('name', 'ASC')->get();
+                    @endphp
+                    @if (count($supports) > 0)
                     <div>
                         <h2 class="mb-6 text-lg font-semibold text-white uppercase dark:text-white">SERVICE LISTS</h2>
                         <ul class="text-white font-medium">
+                            @foreach ($supports as $support)
                             <li class="mb-4">
-                                <a href="#" class="underline">Telegram 1</a>
+                                <a href="{{ $support->link }}" class="underline">{{ $support->name }}</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="#" class="underline">Telegram 2</a>
-                            </li>
-                            <li>
-                                <a href="#" class="underline">Telegram 3</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
                 </div>
             </div>
         </footer>

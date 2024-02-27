@@ -61,6 +61,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/pending-withdrawal', [AdminController::class, 'pendingWithdrawal'])->name('admin.withdraw');    
             Route::put('/pending-withdrawal/{id}/{action}', [AdminController::class, 'pendingWithdrawalAction'])->name('admin.withdraw.action');
             Route::put('/minimum-withdrawal', [AdminController::class, 'updateMinimumWithdrawal'])->name('admin.withdraw.minimum');
+            Route::get('/vip-levels', [AdminController::class, 'vipLevels'])->name('admin.levels');    
+            Route::post('/vip-levels', [AdminController::class, 'storeVipLevel'])->name('admin.levels.store');    
+            Route::get('/products', [AdminController::class, 'products'])->name('admin.products');    
+            Route::post('/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');    
+
         });
     });
 

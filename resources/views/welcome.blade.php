@@ -11,8 +11,8 @@
                 <div class="pl-6 w-full md:w-1/2 text-white">
                     <h1 class="text-3xl font-normal text-white">Welcome</h1>
                     <div class="flex gap-4 items-center">
-                        <p class="text-3xl font-semibold mt-4">EXCLUSIVE - 032</p>
-                        <img src="assets/vip1.png" class="w-10 h-10 translate-y-2 object-contain" alt="line" />
+                        <p class="text-3xl font-semibold mt-4">{{ $user->username }}</p>
+                        <img src="{{ asset('assets/vip1.png') }}" class="w-10 h-10 translate-y-2 object-contain" alt="line" />
                     </div>
                 </div>
                 <div class="flex justify-center items-center w-full md:w-1/2">
@@ -38,65 +38,36 @@
         </div>
         <div class="flex items-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative contentBx">
             <h3 class="text-center font-bold mb-4 text-lg text-gray-800">VIP LEVEL</h3>
-            <div class="content active">
+            @php
+                $first = true;
+            @endphp
+
+            @foreach ($vips->chunk(2) as $chunk)
+            
+            <div class="content {{ $first ? 'active' : '' }}">
                 <div class="flex md:flex-row flex-col gap-6 justify-between items-center">
+                    @foreach ($chunk as $vip)
                     <div class="card">
-                        <img src="assets/diamond1.png" class="w-1/3 h-1/3 object-contain" alt="hero" />
+                        <img src="{{ asset('uploads/images/vips/' . $vip->image) }}" class="w-1/3 h-1/3 object-contain" alt="{{ $vip->name }}" />
                         <div class="text-white mt-4 text-lg">
-                            <h2 class="font-semibold">VIP 1</h2>
+                            <h2 class="font-semibold">{{ $vip->name }}</h2>
                             <ul class="list-disc pl-5 mt-3 text-sm">
-                                <li>Suitable for most data capture scenarios involving light to medium usage. </li>
-                                <li>Profit of 0.5% per task -45 tasks per set. </li>
-                                <li>Up to 135 Submit ratings per day.</li>
-                                <li>No access to other Premium features.</li>
+                                @foreach (json_decode($vip->description) as $des)
+                                <li>{{ $des }}</li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="assets/diamond2.png" class="w-1/3 h-1/3 object-contain" alt="hero" />
-                        <div class="text-white mt-4 text-lg">
-                            <h2 class="font-semibold">VIP 2</h2>
-                            <ul class="list-disc pl-5 mt-3 text-sm">
-                                <li>Deposit in accordance with our renewal event. </li>
-                                <li>Profit of 1% per task-50 Submit products per set. </li>
-                                <li>Better Profit and Commission.</li>
-                                <li>Up to 150 tasks per day can be submitted by Vip 2 users.</li>
-                            </ul>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-            <div class="content">
-                <div class="flex md:flex-row flex-col gap-6 justify-between items-center">
-                    <div class="card">
-                        <img src="assets/diamond1.png" class="w-1/3 h-1/3 object-contain" alt="hero" />
-                        <div class="text-white mt-4 text-lg">
-                            <h2 class="font-semibold">VIP 3</h2>
-                            <ul class="list-disc pl-5 mt-3 text-sm">
-                                <li>Suitable for most data capture scenarios involving light to medium usage. </li>
-                                <li>Profit of 0.5% per task -45 tasks per set. </li>
-                                <li>Up to 135 Submit ratings per day.</li>
-                                <li>No access to other Premium features.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="assets/diamond2.png" class="w-1/3 h-1/3 object-contain" alt="hero" />
-                        <div class="text-white mt-4 text-lg">
-                            <h2 class="font-semibold">VIP 4</h2>
-                            <ul class="list-disc pl-5 mt-3 text-sm">
-                                <li>Deposit in accordance with our renewal event. </li>
-                                <li>Profit of 1% per task-50 Submit products per set. </li>
-                                <li>Better Profit and Commission.</li>
-                                <li>Up to 150 tasks per day can be submitted by Vip 2 users.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @php
+                $first = false;
+            @endphp
+            @endforeach
             <ul class="controls">
                 <li onclick="nextSlideText()">
-                    <img src="assets/next.png" class="w-10 cursor-pointer object-contain h-10" alt="arrow" />
+                    <img src="{{ asset('assets/next.png') }}" class="w-10 cursor-pointer object-contain h-10" alt="arrow" />
                 </li>
             </ul>
         </div>
@@ -151,7 +122,7 @@
         <div class="flex items-center justify-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative" id="certificate">
             <h3 class="text-center font-bold mb-4 text-lg text-gray-800">CERTIFICATE</h3>
             <div class="flex justify-center items-center">
-                <img src="assets/certificate.png" class="w-2/3 h-2/3 object-contain" alt="hero" />
+                <img src="{{ asset('assets/certificate.png') }}" class="w-2/3 h-2/3 object-contain" alt="hero" />
             </div>
         </div>
         <div class="flex items-center justify-center flex-col bg-black2 h-fit w-full p-10 relative" id="customer">

@@ -14,7 +14,9 @@
                         <h3 class="text-center uppercase font-bold text-green-500 mb-5">{{ session('success') }}</h3>
                         @endif
                         <div class="flex justify-between items-center">
-                            <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            <a href="{{ route('pages.index') }}">
+                                <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            </a>
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Profile</h3>
                             <i class='text-xl'></i>
                         </div>
@@ -53,9 +55,9 @@
                         </div>
                         <div class="my-4">
                             <label for="fullname"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Full Name</label>
+                                class="block mb-2 font-medium text-gray-900">Full Name</label>
                             <input type="text" id="fullname" name="full_name" value="{{ old('full_name') ?? $user->name }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Jane Blow">
                                 @error('full_name')
                                     <strong class="text-red-600">{{ $message }}</strong>
@@ -63,7 +65,7 @@
                         </div>
                         <div class="my-4">
                             <label for="default"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Gender</label>
+                                class="block mb-2 font-medium text-gray-900">Gender</label>
                             <select id="default" name="gender"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="male" {{ old('gender', $user->gender) == "male" ? "selected" : ""  }}>Male</option>
@@ -76,7 +78,7 @@
                         </div>
                         <div class="my-4">
                             <label for="default"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Country</label>
+                                class="block mb-2 font-medium text-gray-900">Country</label>
                             <select id="default" name="country"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="nigeria">Nigeria</option>
@@ -89,16 +91,16 @@
                         </div>
                         <div class="my-4">
                             <label for="old_password"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Old Password</label>
+                                class="block mb-2 font-medium text-gray-900">Old Password</label>
                             <input type="password" id="old_password" name="old_password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="*******">
                                 @error('old_password')
                                     <strong class="text-red-600">{{ $message }}</strong>
                                 @enderror    
                         </div>
                         <div class="my-5 relative">
-                            <label for="password" class="block mb-2 font-medium text-gray-900 dark:text-white">Password</label>
+                            <label for="password" class="block mb-2 font-medium text-gray-900">Password</label>
                             <input type="password" id="password" name="new_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Minimum of 6-digits">
                             <i class="bx bx-show absolute text-xl bottom-2 right-4 cursor-pointer" id="toggle"></i>
                         </div>
@@ -109,7 +111,7 @@
                         </div>    
                     
                         <div class="my-4 relative">
-                            <label for="confirm_password" class="block mb-2 font-medium text-gray-900 dark:text-white">Confirm password</label>
+                            <label for="confirm_password" class="block mb-2 font-medium text-gray-900">Confirm password</label>
                             <input type="password" id="confirm_password" name="new_password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Minimum of 6-digits">
                             <i class="bx bx-show absolute text-xl bottom-2 right-4 cursor-pointer" id="toggle-confirm"></i>
                         </div> 

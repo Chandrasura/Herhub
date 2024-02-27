@@ -215,7 +215,19 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Support</p>
                 </a>
-            </li>          
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('admin.levels') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>VIP Levels</p>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="{{ route('admin.products') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Products</p>
+              </a>
+          </li>                   
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -323,5 +335,6 @@
 {{-- <script src="{{ asset('admin-lte/dist/js/demo.js') }}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="{{ asset('admin-lte/dist/js/pages/dashboard.js') }}"></script> --}}
+@yield('js')
 </body>
 </html>
