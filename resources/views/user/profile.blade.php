@@ -177,7 +177,7 @@
                         </div>
                     </div>
                     <div class="absolute bottom-2">
-                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
+                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
                             Westmetric. All Rights Reserved</p>
                     </div>
                 </div>

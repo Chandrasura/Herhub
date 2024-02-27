@@ -13,6 +13,13 @@
             <div class="glassmorphism w-4/5 h-4/5 rounded-lg p-16 my-10">
                 <div class="mx-auto w-3/5">
                     <div class="mb-5 relative">
+                        <label for="account_name" class="block mb-2 text-lg font-medium text-white">Account Name</label>
+                        <input type="text" name="account_name" value="{{ old('account_name') ? old('account_name') : $user->account_name }}" id="account_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
+                        @error('account_name')
+                            <strong class="text-red-600">{{ $message }}</strong><br>
+                        @enderror
+                    </div>
+                    <div class="mb-5 relative">
                         <label for="wallet_address" class="block mb-2 text-lg font-medium text-white">Wallet Address</label>
                         <input type="text" name="wallet_address" value="{{ old('wallet_address') ? old('wallet_address') : $user->wallet_address }}" id="wallet_address" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
                         @error('wallet_address')
@@ -23,11 +30,41 @@
                         @enderror    
 
                     </div>
+                    <div class="mb-5 relative">
+                        <label for="wallet_name" class="block mb-2 text-lg font-medium text-white">Wallet Name</label>
+                        <input type="text" name="wallet_name" value="{{ old('wallet_name') ? old('wallet_name') : $user->wallet_name }}" id="wallet_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
+                        @error('wallet_name')
+                            <strong class="text-red-600">{{ $message }}</strong><br>
+                        @enderror
+                    </div>
+                    <div class="mb-5 relative">
+                        <label for="network" class="block mb-2 text-lg font-medium text-white">Network</label>
+                        <select name="network" id="network" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">Select Network</option>
+                            <option value="TRON (TRC20)">TRON (TRC20)</option>
+                            <option value="Binance Smart Chain (BEP20)">Binance Smart Chain (BEP20)</option>
+                            <option value="Ethereum (ERC20)">Ethereum (ERC20)</option>
+                            <option value="Polygon">Polygon</option>
+                            <option value="Solana">Solana</option>
+                            <option value="AVAX C-Chain">AVAX C-Chain</option>
+                            <option value="Arbitrum One">Arbitrum One</option>
+                            <option value="Optimism">Optimism</option>
+                            <option value="opBNB">opBNB</option>
+                            <option value="Near Protocol">Near Protocol</option>
+                            <option value="EOS">EOS</option>
+                            <option value="Asset Hub (Polkadot)">Asset Hub (Polkadot)</option>
+                            <option value="BNB Beacon Chain (BEP2)">BNB Beacon Chain (BEP2)</option>
+                            <option value="Tezos">Tezos</option>
+                        </select>
+                        @error('network')
+                            <strong class="text-red-600">{{ $message }}</strong><br>
+                        @enderror
+                    </div>
                     <div class="flex justify-center items-center flex-col mt-16">
                         <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
                             class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                             type="button">
-                            Update Wallet Address
+                            Update Wallet Details
                         </button>
                     </div>
                     

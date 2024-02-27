@@ -108,7 +108,7 @@
                                 <p class="text-frame font-semibold">5000+</p>
                                 <h2 class="text-white">Can be obtained on
                                     deposit amount</h2>
-                                <p class="text-frame font-semibold">8%</p>
+                                <p class="text-frame font-semibold">10%</p>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
             </div>
         </div>
         <div class="absolute bottom-2 left-8 md:left-1/4">
-            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
+            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
                 Westmetric. All Rights Reserved</p>
         </div>
     </div>
