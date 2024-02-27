@@ -10,7 +10,9 @@
                 <div class="flex flex-col items-center justify-center p-6">
                     <div class="w-3/5">
                         <div class="flex justify-between items-center">
-                            <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            <a href="{{ route('pages.index') }}">
+                                <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            </a>
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Profile</h3>
                             <i class='text-xl'></i>
                         </div>
@@ -175,7 +177,7 @@
                         </div>
                     </div>
                     <div class="absolute bottom-2">
-                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
+                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
                             Westmetric. All Rights Reserved</p>
                     </div>
                 </div>

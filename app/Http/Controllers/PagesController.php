@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Vip;
 use App\Models\Support;
+use App\Models\Settings;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
@@ -15,6 +17,8 @@ use Illuminate\Support\Facades\Hash;
 class PagesController extends Controller
 {
     public function index(){
+        $user = Auth::user();
+
         $data = [
             [
                 'label' => 'I. Start Task',
@@ -60,8 +64,9 @@ class PagesController extends Controller
         ];
 
         $supports = Support::orderBy('name', 'ASC')->get();
+        $vips = Vip::all();
 
-        return view('welcome', compact(['data', 'supports']));
+        return view('welcome', compact(['data', 'supports', 'user', 'vips']));
     }
 
     public function deposit(){
@@ -116,8 +121,12 @@ class PagesController extends Controller
         $request->validate([
             'withdrawal_amount' => [
                 'required', 'numeric', 'gt:0', function($attribute, $value, $fail) use($user) {
+                    $minimum_withdrawal = Settings::where('key', 'minimum_withdrawal')->first();
+                    
                     if ($value > $user->balance) {
                         $fail("The withdawal amount is greater than your balance");
+                    } else if($value < $minimum_withdrawal){
+                        $fail("The minimum withdrawal is USDT $minimum_withdrawal->value");
                     }
                 }
             ],

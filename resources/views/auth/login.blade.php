@@ -18,13 +18,13 @@
                     @endif
                     <div class="mb-5">
                         <label for="username"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                            class="block mb-2 text-sm font-medium text-gray-900">Username</label>
                         <input type="text" id="username" name="username" value="{{ old('username') }}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="jane_blow" required>
                     </div>
                     <div class="mb-5 relative">
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
                         <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="*******" required>
                         <i class="bx bx-show absolute text-xl bottom-2 right-4 cursor-pointer" id="toggle"></i>
                     </div>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="flex justify-center items-center flex-col">
                         <button type="submit" class="py-2 w-1/2 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Login</button>
-                        <p class="text-sm mt-3 font-semibold text-gray-900 dark:text-gray-300">Don't have an account? <a href="{{ route('register') }}" class="text-blue-800 dark:text-blue-400 underline">Register</a></p>
+                        <p class="text-sm mt-3 font-semibold text-gray-900 dark:text-gray-700">Don't have an account? <a href="{{ route('register') }}" class="text-blue-800 dark:text-blue-400 underline">Register</a></p>
                     </div>
                 </form>
                 <div class="absolute bottom-2">
-                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024 Westmetric. All Rights Reserved</p>
+                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-700">Copyright © 2022 Westmetric. All Rights Reserved</p>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <link href="css/popup.css" rel="stylesheet" />
+    <link href="{{ asset('css/popup.css') }}" rel="stylesheet" />
     <div class='min-h-screen w-full' id="blur">
         <header>
             @include('layouts.header')
@@ -11,7 +11,9 @@
                     <div class="flex flex-col items-center justify-center md:p-6 p-2">
                         <div class="mx-auto w-full lg:w-3/5 h-[70vh] lg:h-full">
                             <div class="flex text-white justify-between items-center">
-                                <i class='bx bx-chevron-left text-3xl -translate-y-2 cursor-pointer'></i>
+                                <a href="{{ route('pages.index') }}">
+                                    <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                                </a>
                                 <h3 class="text-2xl text-center uppercase font-bold mb-5">Start</h3>
                                 <i class='text-xl'></i>
                             </div>
@@ -39,7 +41,7 @@
                                         <div class="flex justify-between items-center">
                                             <div class="flex gap-4">
                                                 <div>
-                                                    <img src="assets/credit-card.png" class="w-4 h-4 object-contain"
+                                                    <img src="{{ asset('assets/credit-card.png') }}" class="w-4 h-4 object-contain"
                                                         alt="line" />
                                                 </div>
                                                 <div class="text-sm">
@@ -106,8 +108,8 @@
                 class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Submit</button>
         </div>
         <div class="absolute bottom-2 left-8">
-            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2024
-                Growthcurve. All Rights Reserved</p>
+            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
+                Westmetric. All Rights Reserved</p>
         </div>
     </div>
 
@@ -126,15 +128,15 @@
         let items = [{
                 image: 'assets/all1.png',
                 description: 'Description of Item 1',
-                price: 'USDT 1,072.65',
-                point: 'USDT 10',
+                price: 'USDT 150.00',
+                point: 'USDT 1.50',
                 missionCode: 'ADGhfdhksa716edgs'
             },
             {
                 image: 'assets/all2.png',
                 description: 'Description of Item 2',
                 price: 'USDT 500.00',
-                point: 'USDT 5',
+                point: 'USDT 5.00',
                 missionCode: 'GHJfdhgsk67321fdg'
             },
             {
