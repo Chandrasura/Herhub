@@ -6,9 +6,9 @@
             @include('layouts.header')
         </header>
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
-            <div class="bg-white w-4/5 h-4/5 rounded p-10 my-10 relative">
-                <div class="flex flex-col items-center justify-center p-6">
-                    <div class="w-3/5">
+            <div class="bg-white w-4/5 h-4/5 rounded p-4 sm:p-10 my-10 relative">
+                <div class="flex flex-col items-center justify-center p-2 sm:p-6">
+                    <div class="sm:w-3/5 w-full">
                         <div class="flex justify-between items-center">
                             <a href="{{ route('pages.index') }}">
                                 <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
@@ -16,7 +16,7 @@
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Profile</h3>
                             <i class='text-xl'></i>
                         </div>
-                        <div class="my-4 flex gap-4 items-center">
+                        <div class="my-4 flex gap-4 flex-col sm:flex-row items-center">
                             <div>
                                 <img src="{{ asset('assets/avatar.png') }}" class="border border-blue-400 w-32 h-32 rounded-full mx-auto"
                                     alt="avatar" />
@@ -27,11 +27,11 @@
                             </div>
                         </div>
                         <div class="bg-frame text-white p-6 h-fit w-full rounded-lg">
-                            <div class="flex text-lg justify-between items-center">
+                            <div class="flex text-lg flex-col sm:flex-row justify-between items-center">
                                 <p>Invitation Code</p>
                                 <p>{{ $user->referral_code }}</p>
                             </div>
-                            <div class="flex text-lg justify-between items-center mt-4">
+                            <div class="flex text-lg justify-between items-center mt-4 flex-col sm:flex-row">
                                 <p>Credit Score</p>
                                 <div class="max-w-sm">
                                     <input id="default-range" type="range" value="100"
@@ -39,8 +39,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-frame text-white p-6 h-fit w-full rounded-lg mt-4 flex justify-between">
-                            <div class="w-1/2 flex text-lg gap-4 flex-col border-r border-white">
+                        <div class="bg-frame text-white p-6 h-fit w-full rounded-lg mt-4 flex flex-col sm:flex-row justify-between">
+                            <div class="w-full sm:w-1/2 flex text-lg gap-4 flex-col border-b sm:border-b-0 sm:border-r border-white">
                                 <p class="text-gray-300">Total Profit</p>
                                 <p>USDT 0.00</p>
                             </div>
@@ -176,8 +176,8 @@
                             </a>
                         </div>
                     </div>
-                    <div class="absolute bottom-2">
-                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
+                    <div class="absolute sm:bottom-2 bottom-0 sm:mt-0 mt-4">
+                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300 text-center">Copyright © 2022
                             Westmetric. All Rights Reserved</p>
                     </div>
                 </div>
