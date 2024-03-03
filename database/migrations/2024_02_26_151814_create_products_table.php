@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->bigInteger('vip_id')->unsigned();
             $table->float('amount');
-            $table->string('mission_code');
             $table->string('image');
+            $table->foreign('vip_id')->references('id')->on('vips')->onDelete('cascade');
             $table->timestamps();
         });
     }

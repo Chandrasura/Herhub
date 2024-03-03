@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'password',
         'username',
+        'vip_id',
         'phone',
         'gender',
         'withdrawal_pin',

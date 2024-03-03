@@ -238,7 +238,7 @@ class PagesController extends Controller
         $user = Auth::user();
         $profit = Profit::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->sum('amount');
         $task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
-        $products = Product::where('amount', '<', $user->available_balance)->get();
+        $products = Product::where('amount', '<', $user->available_balance)->where('vip_id', $user->vip_id)->get();
         return view('user.start', compact(['user', 'profit', 'task', 'products']));
     }
 

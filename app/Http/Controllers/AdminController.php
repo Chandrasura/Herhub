@@ -168,28 +168,77 @@ class AdminController extends Controller
 
     public function storeProduct(Request $request){
         $request->validate([
-            'product_name' => 'required|string|unique:products,name',
-            'product_amount' => 'required|numeric|gt:0',
-            'mission_code' => 'required|string',
             'image' => 'required|file|image|mimes:jpeg,jpg,webp,gif,png'
         ]);
 
         $file = $request->File('image');
         $extension = $file->getClientOriginalExtension();
-        $fileName = str_replace(" ", "-", $request->product_name) . ".$extension";
+        $productName = $this->generateProductCode();
+        $fileName = "$productName.$extension";
 
-        $file->move('uploads/images/products', $fileName);
+        $vips = Vip::all();
 
-        Product::create([
-            'name' => ucfirst($request->product_name),
-            'amount' => $request->product_amount,
-            'mission_code' => $request->mission_code,
-            'image' => $fileName
-        ]);
+        if(count($vips) > 0){
+            $file->move('uploads/images/products', $fileName);
+            $amount = 0;
+            foreach($vips as $vip){
+                if($vip->name == "VIP1") {
+                    $amount = $this->generateProductAmount(100, 350);
+                } else if($vip->name == "VIP2") {
+                    $amount = $this->generateProductAmount(250, 600);
+                } else if($vip->name == "VIP3") {
+                    $amount = $this->generateProductAmount(500, 1200);
+                } else if($vip->name == "VIP4") {
+                    $amount = $this->generateProductAmount(800, 4000);
+                }
+                Product::create([
+                    'name' => $productName,
+                    'vip_id' => $vip->id,
+                    'amount' => $amount,
+                    'image' => $fileName
+                ]);
+            }
 
-        return redirect()->back()->with('success', 'Product added successfully');    
-
+            return redirect()->back()->with('success', 'Product added successfully');    
+        } else {
+            return redirect()->back()->with('error', 'There are no VIPs at the moment. Kindly add at least one VIP to add a product.');    
+        }
     }
 
+    public function generateProductCode()
+    {
+        $isUnique = false;
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        while (!$isUnique) {
+            $randomString = '';
+            for ($i = 0; $i < 12; $i++) {
+                $randomString .= $characters[random_int(0, strlen($characters) - 1)];
+            }
+
+            $randomString = strtoupper($randomString);
+
+            $exists = Product::where('name', $randomString)->exists();
+
+            if (!$exists) {
+                $isUnique = true;
+            }
+        }
+
+        return $randomString;
+    }
+
+    function generateProductAmount($min, $max) {    
+        // Calculate the number of integers divisible by 5 in the range
+        $count = ($max - $min) / 5 + 1;
+    
+        // Generate a random index
+        $randIndex = rand(0, $count - 1);
+    
+        // Calculate the random number
+        $randomDivisibleBy5 = $min + 5 * $randIndex;
+    
+        return $randomDivisibleBy5;
+    }
 
 }

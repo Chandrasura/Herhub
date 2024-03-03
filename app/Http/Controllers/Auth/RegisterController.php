@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Deposit;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Vip;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -78,9 +79,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         try{
+            $vip = Vip::first();
             DB::beginTransaction();
             $user = User::create([
                 'name' => ucwords($data['full_name']),
+                'vip_id' => $vip->id,
                 'username' => $data['username'],
                 'phone' => $data['phone'],
                 'gender' => $data['gender'],

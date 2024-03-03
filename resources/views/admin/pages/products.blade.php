@@ -7,27 +7,6 @@
     @method('post')
         <div class="row">
             <div class="col-6 mb-3">
-                <label for="product_name">Product Name</label>
-                <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" class="form-control">
-                @error('product_name')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="product_amount">Product Amount</label>
-                <input type="number" id="product_amount" name="product_amount" value="{{ old('product_amount') }}" class="form-control">
-                @error('product_amount')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="mission_code">Mission Code</label>
-                <input type="text" id="mission_code" name="mission_code" value="{{ old('mission_code') }}" class="form-control">
-                @error('mission_code')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
                 <label for="image">Image</label>
                 <input type="file" id="image" name="image" class="form-control">
                 @error('image')
@@ -35,7 +14,7 @@
                 @enderror
             </div>
         </div>
-        <input type="submit" class="btn btn-success d-flex mx-auto" value="Add Product">
+        <input type="submit" class="btn btn-success mx-3" value="Add Product">
     </form>
 
   <div class="row mt-5">
@@ -65,10 +44,10 @@
                                         aria-label="Rendering engine: activate to sort column descending">Name
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount (USDT)
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Mission Code
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">VIP Level
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Image
@@ -81,7 +60,7 @@
                                     <td class="dtr-control sorting_1" tabindex="0">{{ ++$index }}</td>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->amount}}</td>
-                                    <td>{{ $product->mission_code }}</td>
+                                    <td>{{ $product->vip->name }}</td>
                                     <td>
                                         <img src="{{ asset('uploads/images/products/' . $product->image) }}" style="width: 30px; height: 30px" alt="{{ $product->name }}" />
                                     </td>
@@ -99,10 +78,10 @@
                                         aria-label="Rendering engine: activate to sort column descending">Name
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount (USDT)
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Mission Code
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">VIP Level
                                     </th>
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"

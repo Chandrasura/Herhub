@@ -35,7 +35,7 @@
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white border-b border-blue-400">Records</a>
                     </li>
                     <li>
-                        <a href="/terms"
+                        <a href="{{ route('pages.terms') }}"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">T
                             & C</a>
                     </li>

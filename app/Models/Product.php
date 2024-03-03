@@ -12,7 +12,11 @@ class Product extends Model
     protected $fillable = [
         'name',
         'amount',
-        'mission_code',
+        'vip_id',
         'image'
     ];
+
+    public function vip(){
+        return $this->belongsTo(Vip::class);
+    }
 }

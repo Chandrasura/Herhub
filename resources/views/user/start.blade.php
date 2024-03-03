@@ -18,7 +18,7 @@
                                 <i class='text-xl'></i>
                             </div>
                             <div class="flex justify-center items-center relative" id="startBg">
-                                <img src="assets/start.png" class="md:w-4/5 lg:block hidden md:h-4/5" alt="start" />
+                                <img src="{{ asset('assets/start.png') }}" class="md:w-4/5 lg:block hidden md:h-4/5" alt="start" />
                                 <div class="absolute text-white h-full p-8">
                                     <div
                                         class="flex items-center md:flex-row flex-col justify-center gap-4 md:gap-16 font-bold text-white text-2xl">
@@ -29,7 +29,7 @@
                                     <div class="flex flex-col gap-4 mt-10">
                                         <div class="flex gap-4">
                                             <div>
-                                                <img src="assets/coin.png" class="w-4 h-4 object-contain" alt="line" />
+                                                <img src="{{ asset('assets/coin.png') }}" class="w-4 h-4 object-contain" alt="line" />
                                             </div>
                                             <div class="text-sm">
                                                 <p>Today's Profit</p>
@@ -104,11 +104,6 @@
                 </div>
             </div>
             <hr class="w-full border " />
-            <div class="flex justify-between items-center w-full text-lg font-semibold">
-                <p>Mission Code</p>
-                <p id="missionCode" class="uppercase"></p>
-            </div>
-            <hr class="w-full border " />
             <button id="submit" type="submit"
                 class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Submit</button>
         </form>
@@ -136,6 +131,7 @@
                 document.getElementById('new_task_id').value = response.data.task;
                 if(response.data.error){
                     document.getElementById('pending-task').innerHTML = response.data.error;
+                    return true;
                 } else{
                     document.getElementById('pending-task').innerHTML = "";
                     toggle();
@@ -162,28 +158,29 @@
                 description: products[i]['name'],
                 price: 'USDT ' + products[i]['amount'].toFixed(2),
                 point: 'USDT ' + ((user['vip']['percentage_profit'] / 100) * products[i]['amount']).toFixed(2),
-                missionCode: products[i]['mission_code']
             }
         }
 
         // Function to update popup content with a random item from the array
         function updatePopupContent() {
-            let randomIndex = Math.floor(Math.random() * items.length);
-            let item = items[randomIndex];
-            document.getElementById('image').src = item.image;
-            document.getElementById('description').textContent = item.description;
-            document.getElementById('product-id').textContent = item.product_id;
-            document.getElementById('price').textContent = item.price;
-            document.getElementById('point').textContent = item.point;
-            document.getElementById('missionCode').textContent = item.missionCode;
+            if(items.length > 0) {
+                if(fetch()){
+                    let randomIndex = Math.floor(Math.random() * items.length);
+                    let item = items[randomIndex];
+                    document.getElementById('image').src = item.image;
+                    document.getElementById('description').textContent = item.description;
+                    document.getElementById('product-id').textContent = item.product_id;
+                    document.getElementById('price').textContent = item.price;
+                    document.getElementById('point').textContent = item.point;
 
-            let balance_with_commma = document.getElementById('available_balance').innerHTML;
-            let balance_without_commma = balance_with_commma.replace(/,/g, "");
+                    let balance_with_commma = document.getElementById('available_balance').innerHTML;
+                    let balance_without_commma = balance_with_commma.replace(/,/g, "");
 
-            let available_balance = parseFloat(balance_without_commma);
-            document.getElementById('available_balance').innerHTML = (available_balance - item.price.replace("USDT ", "")).toLocaleString();
+                    let available_balance = parseFloat(balance_without_commma);
+                    document.getElementById('available_balance').innerHTML = (available_balance - item.price.replace("USDT ", "")).toLocaleString();
 
-            fetch();
+                }
+            }
         }
         game.addEventListener('click', function() {
             updatePopupContent(); // Update content when the game is clicked
