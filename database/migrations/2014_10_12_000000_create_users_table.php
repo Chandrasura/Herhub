@@ -27,7 +27,10 @@ return new class extends Migration
             $table->float('total_balance')->default(0.00);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('wallet_account_name')->nullable();
             $table->string('wallet_address')->nullable();
+            $table->string('wallet_name')->nullable();
+            $table->string('wallet_network')->nullable();
             $table->rememberToken();
             $table->foreign('vip_id')->references('id')->on('vips')->onDelete('set null');
             $table->timestamps();

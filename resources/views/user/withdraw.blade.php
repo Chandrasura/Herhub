@@ -10,7 +10,9 @@
                 <div class="flex flex-col items-center justify-center p-6">
                     <div class="w-3/5">
                         <div class="flex justify-between items-center">
-                            <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            <a href="{{ route('pages.index') }}">
+                                <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            </a>
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Withdraw</h3>
                             <i class='text-xl'></i>
                         </div>
@@ -56,7 +58,7 @@
                                             <label for="amount"
                                                 class="block mb-2 font-medium text-black2 text-lg">Withdrawal Amount</label>
                                             <input type="number" id="amount" name="withdrawal_amount" value="{{ old('withdrawal_amount') }}" step="0.01"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="0.00" required>
                                                 @error('withdrawal_amount')
                                                     <strong class="text-red-600">{{ $message }}</strong>
@@ -67,7 +69,7 @@
                                             <label for="pin"
                                                 class="block mb-2 font-medium text-black2 text-lg">Withdrawal Pin</label>
                                             <input type="number" id="pin" name="withdrawal_pin"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="4-digits Pin" required>
                                                 @error('withdrawal_pin')
                                                     <strong class="text-red-600">{{ $message }}</strong>
@@ -82,31 +84,25 @@
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"
                                     aria-labelledby="dashboard-tab">
-                                    @if (count($withdrawArray) < 0)
                                         <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
                                             <p class="text-gray-300 text-lg">Total Profits</p>
-                                            <p class="text-xl">USDT 0.00</p>
+                                            <p class="text-xl">USDT {{ number_format($profit, 2) }}</p>
                                         </div>
-                                    @else
-                                        @foreach ($withdrawArray as $transaction)
+                                        @foreach ($withdraws as $transaction)
                                             <div
                                                 class="mb-3 w-full flex justify-between items-center bg-[#5D2C66] p-2 rounded-lg">
                                                 <div>
-                                                    <p class="text-xl text-white font-semibold">{{ $transaction['name'] }}
-                                                    </p>
                                                     <div class="text-gray-300 flex flex-col">
-                                                        <small>{{ $transaction['date_and_time'] }}</small>
-                                                        <small>{{ $transaction['description'] }}</small>
+                                                        <small>{{ $transaction['created_at'] }}</small>
+                                                        <small class="text-{{ $transaction['status'] == 'successful' ? 'green' : 'red' }}-500">{{ $transaction['status'] }}</small>
                                                     </div>
                                                 </div>
                                                 <div class="text-gray-300 flex items-end justify-end flex-col text-sm">
-                                                    <p>Available Balance {{ $transaction['amount_remaining'] }}</p>
                                                     <b
-                                                        class="text-lg text-red-500">-{{ $transaction['amount_deducted'] }}</b>
+                                                        class="text-lg text-red-500">-{{ $transaction['amount'] }}</b>
                                                 </div>
                                             </div>
                                         @endforeach
-                                    @endif
                                 </div>
                             </div>
                         </div>

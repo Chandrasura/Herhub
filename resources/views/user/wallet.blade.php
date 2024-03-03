@@ -14,7 +14,7 @@
                 <div class="mx-auto w-3/5">
                     <div class="mb-5 relative">
                         <label for="account_name" class="block mb-2 text-lg font-medium text-white">Account Name</label>
-                        <input type="text" name="account_name" value="{{ old('account_name') ? old('account_name') : $user->account_name }}" id="account_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
+                        <input type="text" name="account_name" value="{{ old('account_name') ? old('account_name') : $user->wallet_account_name }}" id="account_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
                         @error('account_name')
                             <strong class="text-red-600">{{ $message }}</strong><br>
                         @enderror
@@ -41,20 +41,20 @@
                         <label for="network" class="block mb-2 text-lg font-medium text-white">Network</label>
                         <select name="network" id="network" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option value="">Select Network</option>
-                            <option value="TRON (TRC20)">TRON (TRC20)</option>
-                            <option value="Binance Smart Chain (BEP20)">Binance Smart Chain (BEP20)</option>
-                            <option value="Ethereum (ERC20)">Ethereum (ERC20)</option>
-                            <option value="Polygon">Polygon</option>
-                            <option value="Solana">Solana</option>
-                            <option value="AVAX C-Chain">AVAX C-Chain</option>
-                            <option value="Arbitrum One">Arbitrum One</option>
-                            <option value="Optimism">Optimism</option>
-                            <option value="opBNB">opBNB</option>
-                            <option value="Near Protocol">Near Protocol</option>
-                            <option value="EOS">EOS</option>
-                            <option value="Asset Hub (Polkadot)">Asset Hub (Polkadot)</option>
-                            <option value="BNB Beacon Chain (BEP2)">BNB Beacon Chain (BEP2)</option>
-                            <option value="Tezos">Tezos</option>
+                            <option value="TRON (TRC20)" {{ $user->wallet_network == "TRON (TRC20)" ? "selected" : ""}}>TRON (TRC20)</option>
+                            <option value="Binance Smart Chain (BEP20)" {{ $user->wallet_network == "Binance Smart Chain (BEP20)" ? "selected" : ""}}>Binance Smart Chain (BEP20)</option>
+                            <option value="Ethereum (ERC20)" {{ $user->wallet_network == "Ethereum (ERC20)" ? "selected" : ""}}>Ethereum (ERC20)</option>
+                            <option value="Polygon" {{ $user->wallet_network == "Polygon" ? "selected" : ""}}>Polygon</option>
+                            <option value="Solana" {{ $user->wallet_network == "Solana" ? "selected" : ""}}>Solana</option>
+                            <option value="AVAX C-Chain" {{ $user->wallet_network == "AVAX C-Chain" ? "selected" : ""}}>AVAX C-Chain</option>
+                            <option value="Arbitrum One" {{ $user->wallet_network == "Arbitrum One" ? "selected" : ""}}>Arbitrum One</option>
+                            <option value="Optimism" {{ $user->wallet_network == "Optimism" ? "selected" : ""}}>Optimism</option>
+                            <option value="opBNB" {{ $user->wallet_network == "opBNB" ? "selected" : ""}}>opBNB</option>
+                            <option value="Near Protocol" {{ $user->wallet_network == "Near Protocol" ? "selected" : ""}}>Near Protocol</option>
+                            <option value="EOS" {{ $user->wallet_network == "EOS" ? "selected" : ""}}>EOS</option>
+                            <option value="Asset Hub (Polkadot)" {{ $user->wallet_network == "Asset Hub (Polkadot)" ? "selected" : ""}}>Asset Hub (Polkadot)</option>
+                            <option value="BNB Beacon Chain (BEP2)" {{ $user->wallet_network == "BNB Beacon Chain (BEP2)" ? "selected" : ""}}>BNB Beacon Chain (BEP2)</option>
+                            <option value="Tezos" {{ $user->wallet_network == "Tezos" ? "selected" : ""}}>Tezos</option>
                         </select>
                         @error('network')
                             <strong class="text-red-600">{{ $message }}</strong><br>
@@ -91,7 +91,7 @@
                             <div class="space-y-4">
                                 <div>
                                     <label for="withdrawal_pin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Withdrawal pin</label>
-                                    <input type="number" name="withdrawal_pin" id="withdrawal_pin" placeholder="Enter your withdrawal_pin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                                    <input type="number" name="withdrawal_pin" id="withdrawal_pin" placeholder="Enter your withdrawal pin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                                 </div>
                                 <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update Wallet Address</button>
                             </div>

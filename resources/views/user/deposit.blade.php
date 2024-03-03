@@ -10,7 +10,9 @@
                 <div class="flex flex-col items-center justify-center p-6">
                     <form class="w-3/5">
                         <div class="flex justify-between items-center">
-                            <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            <a href="{{ route('pages.index') }}">
+                                <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            </a>
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Deposit</h3>
                             <i class='text-xl'></i>
                         </div>
@@ -40,31 +42,28 @@
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"
                                     aria-labelledby="dashboard-tab">
-                                    @if (count($historyArray) < 0)
-                                        <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
-                                            <p class="text-gray-300 text-lg">Total Profits</p>
-                                            <p class="text-xl">USDT 0.00</p>
-                                        </div>
-                                    @else
-                                        @foreach ($historyArray as $transaction)
-                                            <div
-                                                class="mb-3 w-full flex justify-between items-center bg-[#5D2C66] p-2 rounded-lg">
-                                                <div>
-                                                    <p class="text-xl text-white font-semibold">{{ $transaction['name'] }}
-                                                    </p>
-                                                    <div class="text-gray-300 flex flex-col">
-                                                        <small>{{ $transaction['date_and_time'] }}</small>
-                                                        <small>{{ $transaction['description'] }}</small>
-                                                    </div>
-                                                </div>
-                                                <div class="text-gray-300 flex items-end justify-end flex-col text-sm">
-                                                    <p>Available Balance {{ $transaction['amount_remaining'] }}</p>
-                                                    <b
-                                                        class="text-lg text-red-500">+{{ $transaction['amount_deducted'] }}</b>
+                                    <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
+                                        <p class="text-gray-300 text-lg">Total Profits</p>
+                                        <p class="text-xl">USDT {{ number_format($profit, 2) }}</p>
+                                    </div>
+                                    @foreach ($deposits as $transaction)
+                                        <div
+                                            class="mb-3 w-full flex justify-between items-center bg-[#5D2C66] p-2 rounded-lg">
+                                            <div>
+                                                <p class="text-xl text-white font-semibold">{{ $transaction['name'] }}
+                                                </p>
+                                                <div class="text-gray-300 flex flex-col">
+                                                    <small>{{ $transaction['created_at'] }}</small>
+                                                    {{-- <small>{{ $transaction['description'] }}</small> --}}
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    @endif
+                                            <div class="text-gray-300 flex items-end justify-end flex-col text-sm">
+                                                {{-- <p>Available Balance {{ $transaction['amount_remaining'] }}</p> --}}
+                                                <b
+                                                    class="text-lg text-green-500">+{{ $transaction['amount'] }}</b>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

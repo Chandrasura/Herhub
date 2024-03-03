@@ -97,7 +97,7 @@
                             </a>
                         </div>
                         <div class="my-4">
-                            <a type="button" href="/vips"
+                            <a type="button" href="{{ $user->vip }}"
                                 class="bg-none border transition font-medium rounded-lg text-sm px-5 py-3 w-full text-black text-center inline-flex items-center me-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     style="fill: rgba(207,48,154);transform: ;msFilter:;">

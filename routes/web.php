@@ -41,14 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/starting', [PagesController::class, 'starting'])->name('pages.starting');
     Route::post('/task', [PagesController::class, 'task'])->name('pages.task');
     Route::put('/task', [PagesController::class, 'submitTask'])->name('pages.task.submit');
-
+    Route::get('/vips', [PagesController::class, 'vip'])->name('pages.vip');
 
     // Route::get('/lang', function () {
     //     return view('user.language');
     // });
-    Route::get('/vips', function () {
-        return view('user.vips');
-    });
     Route::get('/records', function () {
         return view('user.record');
     });

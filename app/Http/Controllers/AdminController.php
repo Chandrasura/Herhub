@@ -39,7 +39,7 @@ class AdminController extends Controller
 
             $user = User::where('id', $request->user)->first();
             $user->update([
-                'availabe_balance' => $user->available_balance + round($request->amount, 2),
+                'available_balance' => $user->available_balance + round($request->amount, 2),
                 'total_balance' => $user->total_balance + round($request->amount, 2)
             ]);
             DB::commit();

@@ -28,7 +28,10 @@ class User extends Authenticatable
         'referral_code',
         'available_balance',
         'total_balance',
-        'wallet_address'
+        'wallet_account_name',
+        'wallet_address',
+        'wallet_name',
+        'wallet_network'
     ];
 
     /**

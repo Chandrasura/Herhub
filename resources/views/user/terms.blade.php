@@ -9,7 +9,9 @@
                 <div class="flex flex-col items-center justify-center p-6">
                     <div class="sm:w-4/5 w-full">
                         <div class="flex justify-between items-center">
-                            <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            <a href="{{ route('pages.index') }}">
+                                <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                            </a>
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">T&C Contract Rules</h3>
                             <i class='text-xl'></i>
                         </div>

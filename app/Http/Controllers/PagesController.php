@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Vip;
 use App\Models\Task;
 use App\Models\Profit;
+use App\Models\Deposit;
 use App\Models\Product;
 use App\Models\Support;
 use App\Models\Settings;
@@ -75,24 +76,10 @@ class PagesController extends Controller
 
     public function deposit(){
         $user = Auth::user();
-        $historyArray = [
-            [
-                'name' => 'Transaction 1',
-                'description' => 'Payment for service',
-                'date_and_time' => '2024-02-27 10:30:00',
-                'amount_deducted' => 50.00,
-                'amount_remaining' => 950.00,
-            ],
-            [
-                'name' => 'Transaction 2',
-                'description' => 'Refund for overcharge',
-                'date_and_time' => '2024-02-26 15:45:00',
-                'amount_deducted' => 20.00,
-                'amount_remaining' => 970.00,
-            ],
-        ];
+        $deposits = Deposit::orderByDesc('created_at')->get();
+        $profit = Profit::where('user_id', $user->id)->sum('amount');
         
-        return view('user.deposit', compact(['user','historyArray']));
+        return view('user.deposit', compact(['user','deposits', 'profit']));
     }
 
     public function support(){
@@ -110,7 +97,10 @@ class PagesController extends Controller
         $user = Auth::user();
 
         $request->validate([
+            'account_name' => 'required|string',
             'wallet_address' => 'required|string',
+            'wallet_name' => 'required|string',
+            'network' => 'required|string',
             'withdrawal_pin' => [
                 'required', 'numeric', function($attribute, $value, $fail) use($user) {
                     if (!Hash::check($value, $user->withdrawal_pin)) {
@@ -121,7 +111,10 @@ class PagesController extends Controller
         ]);
 
         $user->update([
+            'wallet_account_name' => ucwords(strtolower($request->account_name)),
             'wallet_address' => $request->wallet_address,
+            'wallet_name' => $request->wallet_name,
+            'wallet_network' => $request->network,
         ]);
 
         return redirect()->back()->with('success', 'Wallet address updated successfully!!!');
@@ -146,7 +139,10 @@ class PagesController extends Controller
                 'amount_remaining' => 970.00,
             ],
         ];
-        return view('user.withdraw', compact(['user','withdrawArray']));
+        $withdraws = Withdraw::orderByDesc('created_at')->get();
+        $profit = Profit::where('user_id', $user->id)->sum('amount');
+
+        return view('user.withdraw', compact(['user','withdraws', 'profit']));
     }
 
     public function storeWithdraw(Request $request){
@@ -163,7 +159,7 @@ class PagesController extends Controller
                     
                     if ($value > $user->available_balance) {
                         $fail("The withdawal amount is greater than your available balance");
-                    } else if($value < $minimum_withdrawal){
+                    } else if($value < $minimum_withdrawal->value){
                         $fail("The minimum withdrawal is USDT $minimum_withdrawal->value");
                     }
                 }
@@ -332,5 +328,11 @@ class PagesController extends Controller
 
         return redirect()->back()->with('success', 'Task submitted successfully!!!');
 
+    }
+
+    public function vip(){
+        $vips = Vip::all(); 
+
+        return view('user.vips', compact('vips'));
     }
 }
