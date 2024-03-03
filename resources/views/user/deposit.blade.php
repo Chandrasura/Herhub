@@ -40,15 +40,38 @@
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"
                                     aria-labelledby="dashboard-tab">
-                                    <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
-                                        <p class="text-gray-300 text-lg">Total Profits</p>
-                                        <p class="text-xl">USDT 0.00</p>
-                                    </div>
+                                    @if (count($historyArray) < 0)
+                                        <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
+                                            <p class="text-gray-300 text-lg">Total Profits</p>
+                                            <p class="text-xl">USDT 0.00</p>
+                                        </div>
+                                    @else
+                                        @foreach ($historyArray as $transaction)
+                                            <div
+                                                class="mb-3 w-full flex justify-between items-center bg-[#5D2C66] p-2 rounded-lg">
+                                                <div>
+                                                    <p class="text-xl text-white font-semibold">{{ $transaction['name'] }}
+                                                    </p>
+                                                    <div class="text-gray-300 flex flex-col">
+                                                        <small>{{ $transaction['date_and_time'] }}</small>
+                                                        <small>{{ $transaction['description'] }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="text-gray-300 flex items-end justify-end flex-col text-sm">
+                                                    <p>Available Balance {{ $transaction['amount_remaining'] }}</p>
+                                                    <b
+                                                        class="text-lg text-red-500">+{{ $transaction['amount_deducted'] }}</b>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <div class="flex my-20 justify-center items-center flex-col">
-                            <a type="button" href="{{ route('pages.support') }}" class="text-center py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Customer Service</a>
+                            <a type="button" href="{{ route('pages.support') }}"
+                                class="text-center py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Customer
+                                Service</a>
                         </div>
                     </form>
                     <div class="absolute bottom-2">

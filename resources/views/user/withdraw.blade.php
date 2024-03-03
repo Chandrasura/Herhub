@@ -82,10 +82,31 @@
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="dashboard" role="tabpanel"
                                     aria-labelledby="dashboard-tab">
-                                    <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
-                                        <p class="text-gray-300 text-lg">Total Profits</p>
-                                        <p class="text-xl">USDT 0.00</p>
-                                    </div>
+                                    @if (count($withdrawArray) < 0)
+                                        <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
+                                            <p class="text-gray-300 text-lg">Total Profits</p>
+                                            <p class="text-xl">USDT 0.00</p>
+                                        </div>
+                                    @else
+                                        @foreach ($withdrawArray as $transaction)
+                                            <div
+                                                class="mb-3 w-full flex justify-between items-center bg-[#5D2C66] p-2 rounded-lg">
+                                                <div>
+                                                    <p class="text-xl text-white font-semibold">{{ $transaction['name'] }}
+                                                    </p>
+                                                    <div class="text-gray-300 flex flex-col">
+                                                        <small>{{ $transaction['date_and_time'] }}</small>
+                                                        <small>{{ $transaction['description'] }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="text-gray-300 flex items-end justify-end flex-col text-sm">
+                                                    <p>Available Balance {{ $transaction['amount_remaining'] }}</p>
+                                                    <b
+                                                        class="text-lg text-red-500">-{{ $transaction['amount_deducted'] }}</b>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
