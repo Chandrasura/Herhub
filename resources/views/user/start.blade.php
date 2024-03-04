@@ -21,7 +21,7 @@
                                 <img src="{{ asset('assets/start.png') }}" class="md:w-4/5 lg:block hidden md:h-4/5" alt="start" />
                                 <div class="absolute text-white h-full p-8">
                                     <div
-                                        class="flex items-center md:flex-row flex-col justify-center gap-4 md:gap-16 font-bold text-white text-2xl">
+                                        class="flex items-center md:flex-row flex-col justify-center gap-4 md:gap-16 mt-8 font-bold text-white text-2xl">
                                         <h3 class="">Starting</h3>
                                         <p class="uppercase flex gap-2">{{ $user->username }} <img src="{{ asset('uploads/images/vips/' . $user->vip->image) }}"
                                                 class="w-6 h-6 translate-y-2 object-contain" alt="{{ $user->username }}" /></p>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-[#795482] h-[60vh] w-full my-4 mt-20 rounded-lg flex flex-col justify-center items-center">
+                        <div class="h-[10vh] w-full my-4 mt-20 rounded-lg flex flex-col justify-center items-center">
                             <div class="h-32 w-32 bg-[#2490E2] rounded-full text-white p-4 flex justify-center items-center gap-4 flex-col cursor-pointer"
                                 id="game">
                                 <p>Starting Now</p>
