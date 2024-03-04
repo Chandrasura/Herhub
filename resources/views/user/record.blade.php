@@ -6,36 +6,36 @@
             @include('layouts.header')
         </header>
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
-            <div class="glassmorphism w-4/5 h-4/5 rounded-lg p-10 my-10 relative">
-                <div class="flex flex-col items-center justify-center p-6">
-                    <div class="w-4/5">
+            <div class="glassmorphism w-4/5 h-4/5 rounded-lg sm:p-10 p-4 my-10 relative">
+                <div class="flex flex-col items-center justify-center sm:p-6 p-2">
+                    <div class="sm:w-4/5 w-full">
                         <div class="flex justify-between items-center text-white">
                             <a href="{{ route('pages.index') }}">
-                                <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
+                                <i class='bx bx-chevron-left -translate-y-1.5 font-bold text-2xl cursor-pointer'></i>
                             </a>
-                            <h3 class="text-3xl text-center uppercase font-bold mb-5">Records</h3>
+                            <h3 class="sm:text-3xl text-xl text-center uppercase font-bold mb-5">Records</h3>
                             <i class='text-xl'></i>
                         </div>
                         <div class="my-4">
                             <div class="mb-4 flex justify-center items-center w-full">
                                 <ul class="flex rounded-lg w-full flex-wrap -mb-px text-sm font-medium text-center bg-white text-frame items-center py-2.5"
                                     id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
-                                    <li class="w-1/4" role="presentation">
+                                    <li class="sm:w-1/4 w-full" role="presentation">
                                         <button class="py-2 px-10 rounded-[20px]" id="all-tab" data-tabs-target="#all"
                                             type="button" role="tab" aria-controls="all"
                                             aria-selected="false">All</button>
                                     </li>
-                                    <li class="w-1/4" role="presentation">
+                                    <li class="sm:w-1/4 w-full" role="presentation">
                                         <button class="py-2 px-10 rounded-[20px]" id="pending-tab"
                                             data-tabs-target="#pending" type="button" role="tab"
                                             aria-controls="pending" aria-selected="false">Pending</button>
                                     </li>
-                                    <li class="w-1/4" role="presentation">
+                                    <li class="sm:w-1/4 w-full" role="presentation">
                                         <button class="py-2 px-10 rounded-[20px]" id="completed-tab"
                                             data-tabs-target="#completed" type="button" role="tab"
                                             aria-controls="completed" aria-selected="false">Completed</button>
                                     </li>
-                                    {{-- <li class="w-1/4" role="presentation">
+                                    {{-- <li class="sm:w-1/4 w-full" role="presentation">
                                         <button class="py-2 px-10 rounded-[20px]" id="undone-tab" data-tabs-target="#undone"
                                             type="button" role="tab" aria-controls="undone"
                                             aria-selected="false">Undone</button>

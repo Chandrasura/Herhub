@@ -20,6 +20,7 @@
                 </div>
             </div>
             @include('layouts.start')
+            @include('layouts.record')
         </div>
         <div class="flex items-center md:flex-row flex-col bg-white h-fit w-full p-10" id="about">
             <div class="flex w-full md:w-1/2 justify-center items-center">
