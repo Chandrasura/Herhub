@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <link href="css/tabs.css" rel="stylesheet" />
+    <link href="{{ asset('css/tabs.css') }}" rel="stylesheet" />
     <div class='min-h-screen w-full'>
         <header>
             @include('layouts.header')
@@ -8,7 +8,7 @@
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
             <div class="glassmorphism w-4/5 h-4/5 rounded-lg p-10 my-10 relative">
                 <div class="flex flex-col items-center justify-center p-6">
-                    <form class="w-4/5">
+                    <div class="w-4/5">
                         <div class="flex justify-between items-center text-white">
                             <a href="{{ route('pages.index') }}">
                                 <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
@@ -35,130 +35,164 @@
                                             data-tabs-target="#completed" type="button" role="tab"
                                             aria-controls="completed" aria-selected="false">Completed</button>
                                     </li>
-                                    <li class="w-1/4" role="presentation">
+                                    {{-- <li class="w-1/4" role="presentation">
                                         <button class="py-2 px-10 rounded-[20px]" id="undone-tab" data-tabs-target="#undone"
                                             type="button" role="tab" aria-controls="undone"
                                             aria-selected="false">Undone</button>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                             <div id="default-tab-content" class="mt-8">
-                                <div class="hidden p-4" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                <div class="hidden p-4 rounded-lg bg-frame" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                    @forelse ($all_tasks as $task)
                                     <div class="my-4">
                                         <div class="flex justify-between items-center mb-2">
-                                            <small class="text-white">2024-01-28 18:25:13</small>
+                                            <small class="text-white">{{ $task->created_at }}</small>
                                             <button
-                                                class="bg-green-600 rounded-[20px] px-4 text-sm py-2 text-white">Completed</button>
+                                                class="bg-{{ $task->status == "completed" ? "green" : "red" }}-600 rounded-[20px] px-4 text-sm py-2 text-white">{{ ucfirst($task->status) }}</button>
                                         </div>
                                         <div class="flex bg-[#5F3B71] flex-col p-4 text-white gap-4">
                                             <div class="flex gap-6">
                                                 <div>
-                                                    <img src="assets/all1.png" alt="All"
+                                                    <img src="{{ asset('uploads/images/products/' . $task->product->image) }}" alt="{{ $task->product->name }}"
                                                         class="w-20 h-20 object-contain">
                                                 </div>
                                                 <div class="text-md">
-                                                    <p>USB3.0 Hard Drive Converter Cable USB 3.0 To Sata</p>
-                                                    <p>Adapter Converter Cable For Samsung Seagate WD...</p>
+                                                    <p>{{ $task->product->name }}</p>
                                                 </div>
                                             </div>
                                             <hr class="w-full border border-white">
                                             <div class="flex justify-between items-center text-sm">
                                                 <div>
                                                     <p>Total Amount</p>
-                                                    <p class="font-semibold">USDT 378.00</p>
+                                                    <p class="font-semibold">USDT {{ number_format($task->product->amount, 2) }}</p>
                                                 </div>
                                                 <div>
                                                     <p>Profit</p>
-                                                    <p class="font-semibold">USDT 1.19</p>
+                                                    <p class="font-semibold">USDT {{ number_format($task->profit->amount, 2) }}</p>
                                                 </div>
                                             </div>
+                                            @if ($task->status == "pending")
+                                            <form action="{{ route('pages.task.submit') }}" method="POST">
+                                                @csrf
+                                                @method('put')
+                                                <div class="flex justify-end">
+                                                    <input type="hidden" name="task" value="{{ $task->id }}">                                    
+                                                    <button id="submit" type="submit"
+                                                            class="py-2 w-1/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            @endif    
                                         </div>
                                     </div>
-                                    <div class="my-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <small class="text-white">2024-01-28 18:25:13</small>
-                                            <button
-                                                class="bg-green-600 rounded-[20px] px-4 text-sm py-2 text-white">Completed</button>
-                                        </div>
-                                        <div class="flex bg-[#5F3B71] flex-col p-4 text-white gap-4">
-                                            <div class="flex gap-6">
-                                                <div>
-                                                    <img src="assets/all2.png" alt="All"
-                                                        class="w-20 h-20 object-contain">
-                                                </div>
-                                                <div class="text-md">
-                                                    <p>100% Original Smok Nfix Replacement Cartridge 0.8 </p>
-                                                    <p>Ohm Mesh / MTL</p>
-                                                </div>
-                                            </div>
-                                            <hr class="w-full border border-white">
-                                            <div class="flex justify-between items-center text-sm">
-                                                <div>
-                                                    <p>Total Amount</p>
-                                                    <p class="font-semibold">USDT 378.00</p>
-                                                </div>
-                                                <div>
-                                                    <p>Profit</p>
-                                                    <p class="font-semibold">USDT 1.19</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    @empty
+                                    <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
+                                        <p class="text-gray-300 text-lg">Total Profits</p>
+                                        <p class="text-xl">USDT {{ number_format($profit, 2) }}</p>
                                     </div>
-                                    <div class="my-4">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <small class="text-white">2024-01-28 18:25:13</small>
-                                            <button
-                                                class="bg-green-600 rounded-[20px] px-4 text-sm py-2 text-white">Completed</button>
-                                        </div>
-                                        <div class="flex bg-[#5F3B71] flex-col p-4 text-white gap-4">
-                                            <div class="flex gap-6">
-                                                <div>
-                                                    <img src="assets/all3.png" alt="All"
-                                                        class="w-20 h-20 object-contain">
-                                                </div>
-                                                <div class="text-md">
-                                                    <p>IsALifestyle Baby Zip Swaddle Instant Sleeping Bag </p>
-                                                    <p> Cotton Bedung Bayi New Born Sleep Bag Size S&amp;L(0-12M)</p>
-                                                </div>
-                                            </div>
-                                            <hr class="w-full border border-white">
-                                            <div class="flex justify-between items-center text-sm">
-                                                <div>
-                                                    <p>Total Amount</p>
-                                                    <p class="font-semibold">USDT 378.00</p>
-                                                </div>
-                                                <div>
-                                                    <p>Profit</p>
-                                                    <p class="font-semibold">USDT 1.19</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="pending" role="tabpanel"
                                     aria-labelledby="pending-tab">
+                                    @forelse ($pending_tasks as $task)
+                                    <div class="my-4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <small class="text-white">{{ $task->created_at }}</small>
+                                            <button
+                                                class="bg-red-600 rounded-[20px] px-4 text-sm py-2 text-white">{{ ucfirst($task->status) }}</button>
+                                        </div>
+                                        <div class="flex bg-[#5F3B71] flex-col p-4 text-white gap-4">
+                                            <div class="flex gap-6">
+                                                <div>
+                                                    <img src="{{ asset('uploads/images/products/' . $task->product->image) }}" alt="{{ $task->product->name }}"
+                                                        class="w-20 h-20 object-contain">
+                                                </div>
+                                                <div class="text-md">
+                                                    <p>{{ $task->product->name }}</p>
+                                                </div>
+                                            </div>
+                                            <hr class="w-full border border-white">
+                                            <div class="flex justify-between items-center text-sm">
+                                                <div>
+                                                    <p>Total Amount</p>
+                                                    <p class="font-semibold">USDT {{ number_format($task->product->amount, 2) }}</p>
+                                                </div>
+                                                <div>
+                                                    <p>Profit</p>
+                                                    <p class="font-semibold">USDT {{ number_format($task->profit->amount, 2) }}</p>
+                                                </div>
+                                            </div>
+                                            <form action="{{ route('pages.task.submit') }}" method="POST">
+                                                @csrf
+                                                @method('put')
+                                                <div class="flex justify-end">
+                                                    <input type="hidden" name="task" value="{{ $task->id }}">                                    
+                                                    <button id="submit" type="submit"
+                                                            class="py-2 w-1/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    @empty
                                     <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
                                         <p class="text-gray-300 text-lg">Total Profits</p>
-                                        <p class="text-xl">USDT 0.00</p>
+                                        <p class="text-xl">USDT {{ number_format($profit, 2) }}</p>
                                     </div>
+                                    @endforelse
                                 </div>
                                 <div class="hidden p-4 rounded-lg bg-frame" id="completed" role="tabpanel"
                                     aria-labelledby="completed-tab">
+                                    @forelse ($completed_tasks as $task)
+                                    <div class="my-4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <small class="text-white">{{ $task->created_at }}</small>
+                                            <button
+                                                class="bg-green-600 rounded-[20px] px-4 text-sm py-2 text-white">{{ ucfirst($task->status) }}</button>
+                                        </div>
+                                        <div class="flex bg-[#5F3B71] flex-col p-4 text-white gap-4">
+                                            <div class="flex gap-6">
+                                                <div>
+                                                    <img src="{{ asset('uploads/images/products/' . $task->product->image) }}" alt="{{ $task->product->name }}"
+                                                        class="w-20 h-20 object-contain">
+                                                </div>
+                                                <div class="text-md">
+                                                    <p>{{ $task->product->name }}</p>
+                                                </div>
+                                            </div>
+                                            <hr class="w-full border border-white">
+                                            <div class="flex justify-between items-center text-sm">
+                                                <div>
+                                                    <p>Total Amount</p>
+                                                    <p class="font-semibold">USDT {{ number_format($task->product->amount, 2) }}</p>
+                                                </div>
+                                                <div>
+                                                    <p>Profit</p>
+                                                    <p class="font-semibold">USDT {{ number_format($task->profit->amount, 2) }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @empty
                                     <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
                                         <p class="text-gray-300 text-lg">Total Profits</p>
-                                        <p class="text-xl">USDT 0.00</p>
+                                        <p class="text-xl">USDT {{ number_format($profit, 2) }}</p>
                                     </div>
+                                    @endforelse
                                 </div>
-                                <div class="hidden p-4 rounded-lg bg-frame" id="undone" role="tabpanel"
+                                {{-- <div class="hidden p-4 rounded-lg bg-frame" id="undone" role="tabpanel"
                                     aria-labelledby="undone-tab">
                                     <div class="flex flex-col p-4 text-white gap-4 justify-center items-center">
                                         <p class="text-gray-300 text-lg">Total Profits</p>
                                         <p class="text-xl">USDT 0.00</p>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

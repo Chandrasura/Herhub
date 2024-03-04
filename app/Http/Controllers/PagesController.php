@@ -77,7 +77,7 @@ class PagesController extends Controller
     public function deposit(){
         $user = Auth::user();
         $deposits = Deposit::orderByDesc('created_at')->get();
-        $profit = Profit::where('user_id', $user->id)->sum('amount');
+        $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
         
         return view('user.deposit', compact(['user','deposits', 'profit']));
     }
@@ -140,7 +140,7 @@ class PagesController extends Controller
             ],
         ];
         $withdraws = Withdraw::orderByDesc('created_at')->get();
-        $profit = Profit::where('user_id', $user->id)->sum('amount');
+        $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
 
         return view('user.withdraw', compact(['user','withdraws', 'profit']));
     }
@@ -266,7 +266,7 @@ class PagesController extends Controller
 
     public function starting(){
         $user = Auth::user();
-        $profit = Profit::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->sum('amount');
+        $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->sum('amount');
         $task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
         $products = Product::where('amount', '<', $user->available_balance)->where('vip_id', $user->vip_id)->get();
         return view('user.start', compact(['user', 'profit', 'task', 'products']));
@@ -296,6 +296,14 @@ class PagesController extends Controller
             'user_id' => $user->id
         ]);
 
+        $profit = round((($user->vip->percentage_profit / 100) * $task->product->amount), 2);
+
+        Profit::create([
+            'user_id' => $user->id,
+            'task_id' => $task->id,
+            'amount' => $profit
+        ]);
+
         $user->update([
             'available_balance' => $user->available_balance - $product->amount
         ]); 
@@ -310,23 +318,19 @@ class PagesController extends Controller
 
         $task = Task::find($request->task);
         $task->update([
-            'status' => 'successful'
+            'status' => 'completed'
         ]);
 
-        $profit = round((($user->vip->percentage_profit / 100) * $task->product->amount), 2);
-
-        Profit::create([
-            'user_id' => $user->id,
-            'task_id' => $task->id,
-            'amount' => $profit
+        $task->profit->update([
+            'status' => 'completed'
         ]);
 
         $user->update([
-            'available_balance' => $user->available_balance + $task->product->amount + $profit,
-            'total_balance' => $user->total_balance + $profit
+            'available_balance' => $user->available_balance + $task->product->amount + $task->profit->amount,
+            'total_balance' => $user->total_balance + $task->profit->amount
         ]);
 
-        return redirect()->back()->with('success', 'Task submitted successfully!!!');
+        return redirect()->back()->with('success', 'Task completed successfully!!!');
 
     }
 
@@ -334,5 +338,14 @@ class PagesController extends Controller
         $vips = Vip::all(); 
 
         return view('user.vips', compact('vips'));
+    }
+    
+    public function record(){
+        $user = Auth::user();
+        $all_tasks = Task::orderByDesc('created_at')->get();
+        $pending_tasks = Task::orderByDesc('created_at')->where('status', 'pending')->get();
+        $completed_tasks = Task::orderByDesc('created_at')->where('status', 'completed')->get();
+        $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
+        return view('user.record', compact('all_tasks', 'profit', 'pending_tasks', 'completed_tasks'));
     }
 }

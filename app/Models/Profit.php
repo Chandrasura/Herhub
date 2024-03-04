@@ -12,7 +12,8 @@ class Profit extends Model
     protected $fillable = [
         'user_id',
         'task_id',
-        'amount'
+        'amount',
+        'status'
     ];
 
     public function user(){

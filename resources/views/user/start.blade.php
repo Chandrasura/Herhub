@@ -64,7 +64,7 @@
                             <div class="h-32 w-32 bg-[#2490E2] rounded-full text-white p-4 flex justify-center items-center gap-4 flex-col cursor-pointer"
                                 id="game">
                                 <p>Starting Now</p>
-                                <p>{{ $task }} / {{ $user->vip->orders_per_day }}</p>
+                                <p><span id="number_of_tasks">{{ $task }}</span> / {{ $user->vip->orders_per_day }}</p>
                             </div>
                             <p class="text-red-500" id="pending-task"></p>
                         </div>
@@ -121,7 +121,7 @@
         let blur = document.getElementById('blur');
         let submit = document.getElementById('submit');
 
-        function fetch(){
+        function fetch(itemPrice){
 
             axios.post('{{ route('pages.task') }}', {
                 product: document.getElementById('product-id').innerHTML
@@ -131,10 +131,16 @@
                 document.getElementById('new_task_id').value = response.data.task;
                 if(response.data.error){
                     document.getElementById('pending-task').innerHTML = response.data.error;
-                    return true;
                 } else{
                     document.getElementById('pending-task').innerHTML = "";
                     toggle();
+                    let balance_with_commma = document.getElementById('available_balance').innerHTML;
+                    let balance_without_commma = balance_with_commma.replace(/,/g, "");
+
+                    let available_balance = parseFloat(balance_without_commma);
+                    document.getElementById('available_balance').innerHTML = (available_balance - itemPrice.replace("USDT ", "")).toLocaleString();
+                    document.getElementById('number_of_tasks').innerHTML = parseInt(document.getElementById('number_of_tasks').innerHTML) + 1;
+
                 }
             })
             .catch(function(error){
@@ -164,22 +170,15 @@
         // Function to update popup content with a random item from the array
         function updatePopupContent() {
             if(items.length > 0) {
-                if(fetch()){
-                    let randomIndex = Math.floor(Math.random() * items.length);
-                    let item = items[randomIndex];
-                    document.getElementById('image').src = item.image;
-                    document.getElementById('description').textContent = item.description;
-                    document.getElementById('product-id').textContent = item.product_id;
-                    document.getElementById('price').textContent = item.price;
-                    document.getElementById('point').textContent = item.point;
+                let randomIndex = Math.floor(Math.random() * items.length);
+                let item = items[randomIndex];
+                document.getElementById('image').src = item.image;
+                document.getElementById('description').textContent = item.description;
+                document.getElementById('product-id').textContent = item.product_id;
+                document.getElementById('price').textContent = item.price;
+                document.getElementById('point').textContent = item.point;
 
-                    let balance_with_commma = document.getElementById('available_balance').innerHTML;
-                    let balance_without_commma = balance_with_commma.replace(/,/g, "");
-
-                    let available_balance = parseFloat(balance_without_commma);
-                    document.getElementById('available_balance').innerHTML = (available_balance - item.price.replace("USDT ", "")).toLocaleString();
-
-                }
+                fetch(item.price);
             }
         }
         game.addEventListener('click', function() {
