@@ -157,7 +157,7 @@
                     </div>
                 </form>
                 <div class="absolute p-2 bottom-2">
-                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-700 text-centers">Copyright © 2022 Westmetric. All Rights Reserved</p>
+                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-700 text-center">Copyright © 2022 Westmetric. All Rights Reserved</p>
                 </div>
             </div>
         </div>

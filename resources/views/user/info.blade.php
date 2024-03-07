@@ -5,9 +5,9 @@
             @include('layouts.header')
         </header>
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
-            <div class="bg-white w-4/5 h-4/5 rounded p-10 my-10 relative">
-                <div class="flex flex-col items-center justify-center p-6">
-                    <form action="{{ route('user.info.update') }}" class="w-3/5" method="POST">
+            <div class="bg-white w-4/5 h-4/5 rounded sm:p-10 p-4 my-10 relative">
+                <div class="flex flex-col items-center justify-center sm:p-6 p-2">
+                    <form action="{{ route('user.info.update') }}" class="sm:w-3/5 w-full" method="POST">
                         @csrf
                         @method('put')
                         @if (session('success'))
@@ -20,7 +20,7 @@
                             <h3 class="text-3xl text-center uppercase font-bold text-gray-800 mb-5">Profile</h3>
                             <i class='text-xl'></i>
                         </div>
-                        <div class="my-4 flex gap-4 items-center">
+                        <div class="my-4 md:flex-row flex-col flex gap-4 items-center">
                             <div>
                                 <img src="assets/avatar.png" class="border border-blue-400 w-32 h-32 rounded-full mx-auto"
                                     alt="avatar" />
@@ -31,11 +31,11 @@
                             </div>
                         </div>
                         <div class="bg-frame text-white p-6 h-fit w-full rounded-lg">
-                            <div class="flex text-lg justify-between items-center">
+                            <div class="flex md:flex-row flex-col text-lg justify-between items-center">
                                 <p>Invitation Code</p>
                                 <p>{{ $user->referral_code }}</p>
                             </div>
-                            <div class="flex text-lg justify-between items-center mt-4">
+                            <div class="flex md:flex-row flex-col text-lg justify-between items-center mt-4">
                                 <p>Credit Score</p>
                                 <div class="max-w-sm">
                                     <input id="default-range" type="range" value="100"
@@ -43,8 +43,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-frame text-white p-6 h-fit w-full rounded-lg mt-4 flex justify-between">
-                            <div class="w-1/2 flex text-lg gap-4 flex-col border-r border-white">
+                        <div class="bg-frame text-white p-6 h-fit w-full rounded-lg mt-4 flex md:flex-row flex-col justify-between">
+                            <div class="sm:w-1/2 flex text-lg gap-4 flex-col border-b sm:border-b-0 sm:border-r border-white">
                                 <p class="text-gray-300">Total Profit</p>
                                 <p>USDT 0.00</p>
                             </div>
@@ -116,11 +116,11 @@
                             <i class="bx bx-show absolute text-xl bottom-2 right-4 cursor-pointer" id="toggle-confirm"></i>
                         </div>  --}}
                         <div class="flex mt-8 justify-center items-center flex-col">
-                            <button type="submit" class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Save Changes</button>
+                            <button type="submit" class="py-2 sm:w-3/5 w-full bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Save Changes</button>
                         </div>
-                    </form>
-                    <div class="absolute bottom-2">
-                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
+                    </form> 
+                     <div class="mt-4 sm:mt-5 p-2">
+                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300 text-center ">Copyright © 2022
                             Westmetric. All Rights Reserved</p>
                     </div>
                 </div>

@@ -6,9 +6,9 @@
             @include('layouts.header')
         </header>
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
-            <div class="bg-white1 w-4/5 h-4/5 rounded-lg p-10 my-10 relative">
-                <div class="flex flex-col items-center justify-center p-6">
-                    <div class="w-3/5">
+            <div class="bg-white1 w-4/5 h-4/5 rounded-lg p-3 sm:p-10 my-10 relative">
+                <div class="flex flex-col items-center justify-center p-2 sm:p-6">
+                    <form class="sm:w-3/5 w-full">
                         <div class="flex justify-between items-center">
                             <a href="{{ route('pages.index') }}">
                                 <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>
@@ -20,12 +20,12 @@
                             <div class="mb-4 flex justify-center items-center w-full">
                                 <ul class="flex rounded-lg w-4/5 flex-wrap -mb-px text-sm font-medium text-center bg-white text-frame"
                                     id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
-                                    <li class="w-1/2" role="presentation">
+                                    <li class="sm:w-1/2 w-full" role="presentation">
                                         <button class="py-3 px-6 w-full rounded-lg text-[#84269C]" id="profile-tab"
                                             data-tabs-target="#profile" type="button" role="tab"
                                             aria-controls="profile" aria-selected="false">Withdraw</button>
                                     </li>
-                                    <li class="w-1/2" role="presentation">
+                                    <li class="sm:w-1/2 w-full" role="presentation">
                                         <button class="py-3 px-6 w-full rounded-lg text-[#84269C]" id="dashboard-tab"
                                             data-tabs-target="#dashboard" type="button" role="tab"
                                             aria-controls="dashboard" aria-selected="false">History</button>
@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="flex my-10 justify-center items-center flex-col">
                                             <button type="submit"
-                                                class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Submit</button>
+                                                class="py-2 sm:w-3/5 w-full bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -108,9 +108,8 @@
                         </div>
                         
                     </div>
-                    <div class="absolute bottom-2">
-                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
-                            Westmetric. All Rights Reserved</p>
+                    <div class="absolute p-2 bottom-2">
+                        <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-700 text-center">Copyright © 2022 Westmetric. All Rights Reserved</p>
                     </div>
                 </div>
             </div>
