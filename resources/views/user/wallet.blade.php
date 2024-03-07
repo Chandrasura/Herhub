@@ -10,8 +10,8 @@
             @if (session('success'))
                 <h3 class="text-center uppercase font-bold text-green-500 mb-5">{{ session('success') }}</h3>
                 @endif
-            <div class="glassmorphism w-4/5 h-4/5 rounded-lg p-16 my-10">
-                <div class="mx-auto w-3/5">
+            <div class="glassmorphism w-4/5 h-4/5 rounded-lg sm:p-16 p-4 my-10">
+                <div class="mx-auto sm:w-3/5 w-full">
                     <div class="mb-5 relative">
                         <label for="account_name" class="block mb-2 text-lg font-medium text-white">Account Name</label>
                         <input type="text" name="account_name" value="{{ old('account_name') ? old('account_name') : $user->wallet_account_name }}" id="account_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Account Name" required>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="flex justify-center items-center flex-col mt-16">
                         <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
-                            class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                            class="py-2 md:w-3/5 w-full bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                             type="button">
                             Update Wallet Details
                         </button>

@@ -5,9 +5,9 @@
             @include('layouts.header')
         </header>
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
-            <div class="bg-white1 w-4/5 h-4/5 rounded-lg p-10 my-10 relative">
+            <div class="bg-white1 w-4/5 h-4/5 rounded-lg sm:p-10 p-4 my-10 relative">
                 <div class="flex flex-col items-center justify-center p-6">
-                    <form class="w-4/5">
+                    <form class="sm:w-4/5 w-full">
                         <div class="flex justify-between items-center text-black2">
                             <a href="{{ route('pages.index') }}">
                                 <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>

@@ -37,8 +37,8 @@
                         <p class="text-sm mt-3 font-semibold text-gray-900 dark:text-gray-700">Don't have an account? <a href="{{ route('register') }}" class="text-blue-800 dark:text-blue-400 underline">Register</a></p>
                     </div>
                 </form>
-                <div class="absolute bottom-2">
-                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-700">Copyright © 2022 Westmetric. All Rights Reserved</p>
+                <div class="absolute p-2 bottom-2">
+                    <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-700 text-centers">Copyright © 2022 Westmetric. All Rights Reserved</p>
                 </div>
             </div>
         </div>
