@@ -12,7 +12,7 @@
                     <h1 class="text-3xl font-normal text-white">Welcome</h1>
                     <div class="flex gap-4 items-center">
                         <p class="text-3xl font-semibold mt-4">{{ $user->username }}</p>
-                        <img src="{{ asset('uploads/images/vips/' . $user->vip->image) }}" class="w-10 h-10 translate-y-2 object-contain" alt="{{ $user->username }}" />
+                        
                     </div>
                 </div>
                 <div class="flex justify-center items-center w-full md:w-1/2">
@@ -22,7 +22,7 @@
             @include('layouts.start')
             @include('layouts.record')
         </div>
-        <div class="flex items-center md:flex-row flex-col bg-white h-fit w-full p-10" id="about">
+        <div class="flex items-center md:flex-row flex-col bg-white h-fit w-full md:p-10 p-4" id="about">
             <div class="flex w-full md:w-1/2 justify-center items-center">
                 <img src="assets/aero.png" class="w-3/5 h-3/5 object-contain" alt="hero" />
             </div>
@@ -37,16 +37,16 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative contentBx">
+        <div class="flex items-center flex-col bg-[#F2F2F2] h-fit w-full md:p-10 p-4 relative contentBx">
             <h3 class="text-center font-bold mb-4 text-lg text-gray-800">VIP LEVEL</h3>
             @php
                 $first = true;
             @endphp
 
-            @foreach ($vips->chunk(2) as $chunk)
+            @foreach ($vips->chunk(4) as $chunk)
             
             <div class="content {{ $first ? 'active' : '' }}">
-                <div class="flex md:flex-row flex-col gap-6 justify-between items-center">
+                <div class="grid md:grid-cols-4 grid-cols-2 gap-6">
                     @foreach ($chunk as $vip)
                     <div class="card">
                         <img src="{{ asset('uploads/images/vips/' . $vip->image) }}" class="w-1/3 h-1/3 object-contain" alt="{{ $vip->name }}" />
@@ -74,14 +74,14 @@
         </div>
         <div class="flex items-center flex-col bg-white h-fit w-full p-10 relative" id="events">
             <h3 class="text-center font-bold mb-4 text-xl text-gray-800">EVENTS</h3>
-            <div class="bg-white1 p-10 w-full rounded-md flex flex-col justify-center items-center">
+            <div class="bg-white1 md:p-10 p-4 w-full rounded-md flex flex-col justify-center items-center">
                 <div>
-                    <img src="assets/event1.png" class="w-full h-96 object-contain" alt="hero" />
+                    <img src="assets/event1.png" class="w-full h-full md:h-96 object-contain" alt="hero" />
                 </div>
                 <div class="mt-4 text-center max-w-2xl">
                     <h2 class="text-2xl font-semibold text-black2">Gratitude Feedback</h2>
                     <p class="text-gray-600 text-xl mt-2">Westmetric platform and its merchant has jointly organized a
-                        reward system for all ourcherished users.</p>
+                        reward system for all our cherished users.</p>
                 </div>
                 <div class="bg-black1 mt-4 h-fit rounded-lg w-full">
                     <div class="flex justify-between sm:flex-row flex-col items-center p-6">
@@ -120,13 +120,13 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-center justify-center flex-col bg-[#F2F2F2] h-fit w-full p-10 relative" id="certificate">
+        <div class="flex items-center justify-center flex-col bg-[#F2F2F2] h-fit w-full md:p-10 p-4 relative" id="certificate">
             <h3 class="text-center font-bold mb-4 text-lg text-gray-800">CERTIFICATE</h3>
             <div class="flex justify-center items-center">
                 <img src="{{ asset('assets/certificate.png') }}" class="w-2/3 h-2/3 object-contain" alt="hero" />
             </div>
         </div>
-        <div class="flex items-center justify-center flex-col bg-black2 h-fit w-full p-10 relative" id="customer">
+        <div class="flex items-center justify-center flex-col bg-black2 h-fit w-full md:p-10 p-4 relative" id="customer">
             <h3 class="text-center font-bold mb-4 text-xl text-white uppercase">Customer Service</h3>
             <div class="flex justify-center md:flex-row flex-col gap-8 items-center py-4">
                 @foreach ($supports as $support)
@@ -143,7 +143,7 @@
 
             </div>
         </div>
-        <div class="flex items-center justify-center flex-col bg-white h-fit w-full p-10 relative" id="faq">
+        <div class="flex items-center justify-center flex-col bg-white h-fit w-full md:p-10 p-4 relative" id="faq">
             <h3 class="text-center font-bold mb-4 text-lg text-gray-800">FAQ</h3>
             <div class="w-full flex justify-center items-center">
                 <div class="accordion">
