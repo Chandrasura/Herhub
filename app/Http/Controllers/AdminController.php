@@ -282,16 +282,8 @@ class AdminController extends Controller
     }
 
     function generateProductAmount($min, $max) {    
-        // Calculate the number of integers divisible by 5 in the range
-        $count = ($max - $min) / 5 + 1;
-    
-        // Generate a random index
-        $randIndex = rand(0, $count - 1);
-    
-        // Calculate the random number
-        $randomDivisibleBy5 = $min + 5 * $randIndex;
-    
-        return $randomDivisibleBy5;
+        $floatRand = mt_rand() / (mt_getrandmax() + 1);
+        return round($min + ($max - $min) * $floatRand, 2); 
     }
 
 }
