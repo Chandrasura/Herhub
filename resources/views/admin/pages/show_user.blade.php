@@ -61,7 +61,25 @@
     <p class="col-sm-8 col-lg-10">USDT {{ number_format($user->overall_profit, 2) }}</p>
 </div>
 
+<div class="row mb-1">
+    <p class="col-sm-4 col-lg-2 fw-bold">Wallet Account Name:</p>
+    <p class="col-sm-8 col-lg-10">{{ $user->wallet_account_name ?? "Not specified" }}</p>
+</div>
 
+<div class="row mb-1">
+    <p class="col-sm-4 col-lg-2 fw-bold">Wallet Address:</p>
+    <p class="col-sm-8 col-lg-10">{{ $user->wallet_address ?? "Not specified" }}</p>
+</div>
+
+<div class="row mb-1">
+    <p class="col-sm-4 col-lg-2 fw-bold">Wallet Name:</p>
+    <p class="col-sm-8 col-lg-10">{{ $user->wallet_name ?? "Not specified" }}</p>
+</div>
+
+<div class="row mb-1">
+    <p class="col-sm-4 col-lg-2 fw-bold">Wallet Network:</p>
+    <p class="col-sm-8 col-lg-10">{{ $user->wallet_network ?? "Not specified" }}</p>
+</div>
 
 @else
 <h3 class="my-5 mx-3">The user you are requesting does not exist.</h3>
