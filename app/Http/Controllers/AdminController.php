@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
+use App\Models\Vip;
+use App\Models\Task;
 use App\Models\User;
+use App\Models\Profit;
 use App\Models\Deposit;
 use App\Models\Product;
 use App\Models\Support;
 use App\Models\Settings;
-use App\Models\Vip;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +19,48 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view('admin.pages.dashboard');
+        $users = User::orderBy('name', 'ASC')->get();
+        
+        $users->map(function ($user){
+            $user->upgrade = Vip::where('id', '>', $user->vip_id)->get();
+            return $user;
+        });
+        return view('admin.pages.dashboard', compact(['users']));
+    }
+
+    public function showUser($id){
+        $user = User::find($id);
+        if($user) {
+            $user->today_task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
+            $user->overall_task = Task::where('user_id', $user->id)->count();
+            $user->today_profit = Profit::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->sum('amount');
+            $user->overall_profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
+        }
+        return view('admin.pages.show_user', compact(['user']));
+    }
+
+    public function upgradeUserVip(Request $request){
+        $request->validate([
+            'user' => 'required|numeric|exists:users,id',
+            'upgrade' => 'required|numeric|exists:vips,id',
+        ]);
+
+        $user = User::find($request->user);
+        $new_vip = Vip::find($request->upgrade);
+
+        if($new_vip->id < $user->vip_id){
+            return redirect()->back()->with('error', "You cannot downgrade $user->username VIP level.");
+        } else if($user->available_balance < $new_vip->amount){
+            return redirect()->back()->with('error', "$user->username needs USDT " . number_format($new_vip->amount - $user->available_balance, 2) . " to upgrade to the $new_vip->name");
+        }
+
+        $user->update([
+            'vip_id' => $new_vip->id,
+            'available_balance' => $user->available_balance - $new_vip->amount,
+            'total_balance' => $user->total_balance - $new_vip->amount
+        ]);
+
+        return redirect()->back()->with('success', "$user->username upgraded to $new_vip->name");
     }
 
     public function deposit(){
@@ -48,7 +92,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Something went wrong...');
         }
 
-        return redirect()->back()->with('success', 'Deposit created successfully');
+        return redirect()->back()->with('success', 'Deposit added successfully');
     }
 
     public function support(){
@@ -168,41 +212,50 @@ class AdminController extends Controller
 
     public function storeProduct(Request $request){
         $request->validate([
-            'image' => 'required|file|image|mimes:jpeg,jpg,webp,gif,png'
+            'images' => 'required|array|min:1',
+            'images.*' => 'required|file|image|max:4096|mimes:jpeg,jpg,webp,gif,png'
         ]);
-
-        $file = $request->File('image');
-        $extension = $file->getClientOriginalExtension();
-        $productName = $this->generateProductCode();
-        $fileName = "$productName.$extension";
 
         $vips = Vip::all();
 
         if(count($vips) > 0){
-            $file->move('uploads/images/products', $fileName);
-            $amount = 0;
-            foreach($vips as $vip){
-                if($vip->name == "VIP1") {
-                    $amount = $this->generateProductAmount(100, 350);
-                } else if($vip->name == "VIP2") {
-                    $amount = $this->generateProductAmount(250, 600);
-                } else if($vip->name == "VIP3") {
-                    $amount = $this->generateProductAmount(500, 1200);
-                } else if($vip->name == "VIP4") {
-                    $amount = $this->generateProductAmount(800, 4000);
+            foreach($request->File('images') as $file) {
+                $amount = 0;
+                $productName = $this->generateProductCode();
+                $extension = $file->getClientOriginalExtension();
+                $fileName = "$productName.$extension";
+
+                $file->move('uploads/images/products', $fileName);
+
+                foreach($vips as $vip) {
+                    if($vip->name == "VIP1") {
+                        $amount = $this->generateProductAmount(100, 350);
+                    } else if($vip->name == "VIP2") {
+                        $amount = $this->generateProductAmount(250, 600);
+                    } else if($vip->name == "VIP3") {
+                        $amount = $this->generateProductAmount(500, 1200);
+                    } else if($vip->name == "VIP4") {
+                        $amount = $this->generateProductAmount(800, 4000);
+                    }
+
+                    Product::create([
+                        'name' => $productName,
+                        'vip_id' => $vip->id,
+                        'amount' => $amount,
+                        'image' => $fileName
+                    ]);    
                 }
-                Product::create([
-                    'name' => $productName,
-                    'vip_id' => $vip->id,
-                    'amount' => $amount,
-                    'image' => $fileName
-                ]);
+        
             }
 
-            return redirect()->back()->with('success', 'Product added successfully');    
+            return redirect()->back()->with('success', 'Product(s) added successfully');    
         } else {
-            return redirect()->back()->with('error', 'There are no VIPs at the moment. Kindly add at least one VIP to add a product.');    
+            return redirect()->back()->with('error', 'There are no VIPs at the moment. Kindly add at least one VIP to add product(s).');    
         }
+
+
+
+
     }
 
     public function generateProductCode()

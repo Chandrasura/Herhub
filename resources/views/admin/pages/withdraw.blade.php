@@ -42,6 +42,18 @@
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Amount (USDT)
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Account Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Address
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Network
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Date placed
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
@@ -54,6 +66,10 @@
                                 <tr class="odd">
                                     <td class="dtr-control sorting_1" tabindex="0">{{$pend->user->username}}</td>
                                     <td>{{$pend->amount}}</td>
+                                    <td>{{$pend->user->wallet_account_name}}</td>
+                                    <td>{{$pend->user->wallet_address}}</td>
+                                    <td>{{$pend->user->wallet_name}}</td>
+                                    <td>{{$pend->user->wallet_network}}</td>
                                     <td>{{ \Carbon\Carbon::parse($pend->created_at)->format('M. d, Y') }}</td>
                                     <td>
                                         <button type="button" class="btn" title="Approve Withdrawal" data-toggle="modal" data-target="#action_form" onclick="action('{{ $pend->id }}', 'Approve')">
@@ -70,6 +86,18 @@
                                 <tr>
                                     <th rowspan="1" colspan="1">Username</th>
                                     <th rowspan="1" colspan="1">Amount (USDT)</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Account Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Address
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Network
+                                    </th>
                                     <th rowspan="1" colspan="1">Date placed</th>
                                     <th rowspan="1" colspan="1">Action</th>
                                 </tr>

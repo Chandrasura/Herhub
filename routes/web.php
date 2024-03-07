@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+            Route::post('/dashboard', [AdminController::class, 'upgradeUserVip'])->name('admin.upgradeUserVip');
             Route::get('/deposit', [AdminController::class, 'deposit'])->name('admin.deposit');    
             Route::post('/deposit', [AdminController::class, 'storeDeposit'])->name('admin.deposit.store');
             Route::get('/support', [AdminController::class, 'support'])->name('admin.support');    
@@ -61,7 +62,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/vip-levels', [AdminController::class, 'storeVipLevel'])->name('admin.levels.store');    
             Route::get('/products', [AdminController::class, 'products'])->name('admin.products');    
             Route::post('/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');    
-
+            Route::get('/user/{id}', [AdminController::class, 'showUser'])->name('admin.user.show');
         });
     });
 

@@ -179,6 +179,8 @@
                 document.getElementById('point').textContent = item.point;
 
                 fetch(item.price);
+            } else {
+                document.getElementById('pending-task').innerHTML = "Your available balance is low to perform any task.";
             }
         }
         game.addEventListener('click', function() {

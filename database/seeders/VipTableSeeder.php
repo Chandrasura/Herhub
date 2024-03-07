@@ -22,7 +22,7 @@ class VipTableSeeder extends Seeder
             [
                 'name' => 'VIP1',
                 'amount' => 100,
-                'orders_per_day' => 135,
+                'orders_per_day' => 45,
                 'percentage_profit' => 0.5,
                 'image' => '652d1e14e4b023900c3f5f07_vip1.png',
                 'description' => json_encode([
@@ -35,7 +35,7 @@ class VipTableSeeder extends Seeder
             [
                 'name' => 'VIP2',
                 'amount' => 500,
-                'orders_per_day' => 150,
+                'orders_per_day' => 50,
                 'percentage_profit' => 1,
                 'image' => '652d1e0fe4b023900c3f5f06_vip2.png',
                 'description' => json_encode([
@@ -48,7 +48,7 @@ class VipTableSeeder extends Seeder
             [
                 'name' => 'VIP3',
                 'amount' => 1000,
-                'orders_per_day' => 165,
+                'orders_per_day' => 55,
                 'percentage_profit' => 1.5,
                 'image' => '652d1e07e4b023900c3f5f05_vip3.png',
                 'description' => json_encode([
@@ -61,7 +61,7 @@ class VipTableSeeder extends Seeder
             [
                 'name' => 'VIP4',
                 'amount' => 2000,
-                'orders_per_day' => 300,
+                'orders_per_day' => 60,
                 'percentage_profit' => 2,
                 'image' => '652d1dfae4b023900c3f5f04_vip4.png',
                 'description' => json_encode([

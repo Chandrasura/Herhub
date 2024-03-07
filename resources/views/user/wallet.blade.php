@@ -14,7 +14,7 @@
                 <div class="mx-auto w-3/5">
                     <div class="mb-5 relative">
                         <label for="account_name" class="block mb-2 text-lg font-medium text-white">Account Name</label>
-                        <input type="text" name="account_name" value="{{ old('account_name') ? old('account_name') : $user->wallet_account_name }}" id="account_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
+                        <input type="text" name="account_name" value="{{ old('account_name') ? old('account_name') : $user->wallet_account_name }}" id="account_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Account Name" required>
                         @error('account_name')
                             <strong class="text-red-600">{{ $message }}</strong><br>
                         @enderror
@@ -32,7 +32,7 @@
                     </div>
                     <div class="mb-5 relative">
                         <label for="wallet_name" class="block mb-2 text-lg font-medium text-white">Wallet Name</label>
-                        <input type="text" name="wallet_name" value="{{ old('wallet_name') ? old('wallet_name') : $user->wallet_name }}" id="wallet_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Address" required>
+                        <input type="text" name="wallet_name" value="{{ old('wallet_name') ? old('wallet_name') : $user->wallet_name }}" id="wallet_name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Wallet Name" required>
                         @error('wallet_name')
                             <strong class="text-red-600">{{ $message }}</strong><br>
                         @enderror

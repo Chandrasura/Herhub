@@ -7,9 +7,12 @@
     @method('post')
         <div class="row">
             <div class="col-6 mb-3">
-                <label for="image">Image</label>
-                <input type="file" id="image" name="image" class="form-control">
-                @error('image')
+                <label for="image">Image(s)</label>
+                <input type="file" id="image" name="images[]" class="form-control" multiple>
+                @error('images')
+                    <strong class="text-danger">{{ $message }}</strong>
+                @enderror
+                @error('images.*')
                     <strong class="text-danger">{{ $message }}</strong>
                 @enderror
             </div>
