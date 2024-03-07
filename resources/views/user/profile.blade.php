@@ -176,7 +176,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="absolute sm:bottom-2 bottom-0 sm:mt-0 pt-4">
+                   <div class="mt-2 sm:mt-3 p-1">
                         <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300 text-center ">Copyright © 2022
                             Westmetric. All Rights Reserved</p>
                     </div>

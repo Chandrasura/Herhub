@@ -65,4 +65,3 @@
         togglePasswordVisibility('password', 'toggle');
     </script>
 @endsection
-<img src="{{ asset('uploads/images/vips/' . $user->vip->image) }}" class="w-10 h-10 translate-y-2 object-contain" alt="{{ $user->username }}" />  no 15
