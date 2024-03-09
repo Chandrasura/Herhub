@@ -253,9 +253,6 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'There are no VIPs at the moment. Kindly add at least one VIP to add product(s).');    
         }
 
-
-
-
     }
 
     public function generateProductCode()

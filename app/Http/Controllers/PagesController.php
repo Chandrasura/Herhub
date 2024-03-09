@@ -76,7 +76,7 @@ class PagesController extends Controller
 
     public function deposit(){
         $user = Auth::user();
-        $deposits = Deposit::orderByDesc('created_at')->get();
+        $deposits = Deposit::where('user_id', $user->id)->orderByDesc('created_at')->get();
         $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
         
         return view('user.deposit', compact(['user','deposits', 'profit']));
@@ -123,23 +123,7 @@ class PagesController extends Controller
 
     public function withdraw(){
         $user = Auth::user();
-        $withdrawArray = [
-            [
-                'name' => 'Transaction 1',
-                'description' => 'Payment for service',
-                'date_and_time' => '2024-02-27 10:30:00',
-                'amount_deducted' => 50.00,
-                'amount_remaining' => 950.00,
-            ],
-            [
-                'name' => 'Transaction 2',
-                'description' => 'Refund for overcharge',
-                'date_and_time' => '2024-02-26 15:45:00',
-                'amount_deducted' => 20.00,
-                'amount_remaining' => 970.00,
-            ],
-        ];
-        $withdraws = Withdraw::orderByDesc('created_at')->get();
+        $withdraws = Withdraw::where('user_id', $user->id)->orderByDesc('created_at')->get();
         $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
 
         return view('user.withdraw', compact(['user','withdraws', 'profit']));

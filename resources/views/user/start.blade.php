@@ -82,7 +82,7 @@
     </div>
     <div id="popup">
         <a href="#" id="close">X</a>
-        <h3 class="uppercase font-bold text-2xl mx-4 text-center">Boost Mission</h3>
+        <h3 class="uppercase font-bold lg:text-2xl sm:text-lg lg:mx-4 sm:mx-2 my-2 text-center">Boost Mission</h3>
         <form action="{{ route('pages.task.submit') }}" method="POST" class="flex justify-center items-center flex-col gap-4">
             @csrf
             @method('put')
@@ -93,8 +93,8 @@
             </div>
             <p id="description"></p>
             <hr class="w-full border " />
-            <div class="flex justify-between items-center w-full">
-                <div class="text-sm">
+            <div class="justify-between items-center w-full">
+                <div class="text-sm mb-2">
                     <p>Total Amount</p>
                     <p id="price" class="text-[#1ABBF9]"></p>
                 </div>
@@ -107,10 +107,10 @@
             <button id="submit" type="submit"
                 class="py-2 w-3/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">Submit</button>
         </form>
-        <div class="absolute bottom-2 left-8">
-            <p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022
-                Westmetric. All Rights Reserved</p>
-        </div>
+        <!--<div class="absolute bottom-2 left-8">-->
+            <!--<p class="text-gray-900 font-semibold text-sm text-gray-800 dark:text-gray-300">Copyright © 2022-->
+            <!--    Westmetric. All Rights Reserved</p>-->
+        <!--</div>-->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
