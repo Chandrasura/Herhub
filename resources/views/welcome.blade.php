@@ -51,7 +51,6 @@
                     </div>
             </div>
             @include('layouts.start')
-            @include('layouts.record')
         </div>
         @include('sub.mission')
         <div class="flex items-center flex-col bg-[#F2F2F2] h-fit w-full md:p-10 p-4 relative contentBx">
