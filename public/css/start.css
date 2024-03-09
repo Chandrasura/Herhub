@@ -49,3 +49,8 @@
         right:-40%;
     }
 }
+@media (max-width: 400px){
+    .menu-wrapper {
+        right:-30%;
+    }
+}

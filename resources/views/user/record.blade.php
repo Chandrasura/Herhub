@@ -77,11 +77,12 @@
                                                 @csrf
                                                 @method('put')
                                                 <div class="flex justify-end">
-                                                    <input type="hidden" name="task" value="{{ $task->id }}">                                    
-                                                    <button id="submit" type="submit"
-                                                            class="py-2 w-1/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
-                                                        Submit
-                                                    </button>
+                                                    <input type="hidden" name="task" value="{{ $task->id }}">
+                                                    <button id="submit" type="submit" class="bg-gradient-to-r from-[#28A6EF] to-[#1323A0] rounded-[20px] px-4 text-sm py-2 text-white">Submit</button>
+                                                    <!--<button id="submit" type="submit"-->
+                                                    <!--        class="py-2 w-1/5 bg-gradient-to-r from-[#28A6EF] to-[#1323A0] text-white text-md font-semibold rounded-[20px] focus:ring-4 focus:ring-blue-200 focus:outline-none focus:ring-offset-2 dark:bg-blue-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">-->
+                                                    <!--    Submit-->
+                                                    <!--</button>-->
                                                 </div>
                                             </form>
                                             @endif    
