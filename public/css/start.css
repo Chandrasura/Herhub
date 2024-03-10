@@ -64,14 +64,28 @@
     z-index: 10;
     transition: all 0.5s ease-in-out;
 }
-
 @media (max-width: 700px){
+.menu-wrapper {
+    right: -13%;
+}
+}
+@media (max-width: 550px){
     .menu-wrapper {
-        right:-40%;
+        right:-18%;
+    }
+}
+@media (max-width: 450px){
+    .menu-wrapper {
+        right:-23%;
     }
 }
 @media (max-width: 400px){
     .menu-wrapper {
         right:-30%;
+    }
+}
+@media (max-width: 320px){
+    .menu-wrapper {
+        right:-34%;
     }
 }
