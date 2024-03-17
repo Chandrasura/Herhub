@@ -51,7 +51,6 @@
                     </div>
             </div>
             @include('layouts.start')
-            @include('layouts.record')
         </div>
         @include('sub.mission')
         <div class="flex items-center flex-col bg-[#F2F2F2] h-fit w-full md:p-10 p-4 relative contentBx">
@@ -63,7 +62,7 @@
             @foreach ($vips->chunk(4) as $chunk)
             
             <div class="content {{ $first ? 'active' : '' }}">
-                <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-6 gap-4 justify-between items-center">
+                <div class="grid lg:grid-cols-4 sm:grid-cols-2 md:gap-6 gap-4 justify-between items-center">
                     @foreach ($chunk as $vip)
                     <div class="card">
                         <img src="{{ asset('uploads/images/vips/' . $vip->image) }}" class="w-1/3 h-1/3 object-contain" alt="{{ $vip->name }}" />
