@@ -82,13 +82,19 @@
                                       <a href="{{ route('admin.user.show', $user->id) }}" class="btn">
                                           <i class="fa fa-eye text-success px-2" aria-hidden="true"></i>
                                       </a>
-                                      @if ($status = $user->setCompletion($user->id))
+                                    @if ($status = $user->setCompletion($user->id))
                                         @if ($status->status == "reset")
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reset" onclick="resetUser('{{ $user->id }}')">
                                                 Reset Today Set
                                         </button>    
                                         @endif
                                     @endif
+                                    @if ($user->status == "inactive")
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#status" onclick="setActive('{{ $user->id }}')">
+                                            Set back to active
+                                    </button>    
+                                    @endif
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -157,6 +163,29 @@
     </div>
 </div>
 
+<div class="modal fade" id="status">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Set User to Active</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to set this user back to active?
+            </div>
+            <div class="modal-footer">
+                <form name="status_form" action="" method="post">
+                    @csrf
+                    @method('put')
+                    <button type="submit" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 
 @section('js')
@@ -169,6 +198,16 @@
             let reset_form = document.forms['reset_form'];        
             reset_form.action = resetUrl;
         }
+
+        let statusBaseUrl = "{{ route('admin.user.status', ['id' => '__id__']) }}"
+
+        function setActive(id){
+            let activeUrl = statusBaseUrl.replace('__id__', '') + id;
+
+            let status_form = document.forms['status_form'];        
+            status_form.action = activeUrl;
+        }
+
 
     </script>
 @endsection

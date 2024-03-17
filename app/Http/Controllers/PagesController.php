@@ -251,6 +251,16 @@ class PagesController extends Controller
 
     public function starting(){
         $user = Auth::user();
+
+        $last_three_tasks_sets = SetCompletion::where('user_id', $user->id)->latest('id')->take(3)->pluck('id');
+        $uncompleted_three_tasks_sets = SetCompletion::whereIn('id', $last_three_tasks_sets)->where('status', '!=', 'completed')->count();
+
+        if($uncompleted_three_tasks_sets == 3) {
+            $user->update([
+                'status' => 'inactive',
+            ]);
+        }
+
         $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->sum('amount');
 
         $completed_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
@@ -269,6 +279,12 @@ class PagesController extends Controller
 
     public function task(Request $request){
         $user = Auth::user();
+
+        if($user->status == 'inactive'){
+            return response([
+                'error' => 'You have not completed your tasks for 3 consecutive times. Kindly message admin to reset your account.'
+            ]);
+        }
 
         $pending_tasks = Task::where('user_id', $user->id)->where('status', 'pending')->get();
         if(count($pending_tasks) > 0){

@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('wallet_address')->nullable();
             $table->string('wallet_name')->nullable();
             $table->string('wallet_network')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->foreign('vip_id')->references('id')->on('vips')->onDelete('set null');
             $table->timestamps();

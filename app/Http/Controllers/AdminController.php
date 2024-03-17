@@ -386,5 +386,12 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'User today task reset successfully');
     }
 
+    public function setUserActive($id){
+        $user = User::find($id);
+        $user->update([
+            'status' => 'active',
+        ]);
+        return redirect()->route('admin.dashboard')->with('success', 'User set to active successfully');
+    }
 
 }

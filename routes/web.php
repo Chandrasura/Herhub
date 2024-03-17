@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/vip-levels/delete/{id}', [AdminController::class, 'deleteVip'])->name('admin.vip.delete');
             Route::get('/vip-levels/edit/{slug}', [AdminController::class, 'editVip'])->name('admin.vip.edit');
             Route::put('/vip-levels/edit/{slug}', [AdminController::class, 'updateVip'])->name('admin.vip.update');
+            Route::put('/set-user-active/{id}', [AdminController::class, 'setUserActive'])->name('admin.user.status');
 
 
         });

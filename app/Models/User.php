@@ -32,7 +32,8 @@ class User extends Authenticatable
         'wallet_account_name',
         'wallet_address',
         'wallet_name',
-        'wallet_network'
+        'wallet_network',
+        'status'
     ];
 
     /**
