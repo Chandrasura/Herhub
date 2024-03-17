@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
             Route::post('/dashboard', [AdminController::class, 'upgradeUserVip'])->name('admin.upgradeUserVip');
+            Route::put('/reset-user-today-task/{id}', [AdminController::class, 'resetUser'])->name('admin.user.reset');
             Route::get('/deposit', [AdminController::class, 'deposit'])->name('admin.deposit');    
             Route::post('/deposit', [AdminController::class, 'storeDeposit'])->name('admin.deposit.store');
             Route::get('/support', [AdminController::class, 'support'])->name('admin.support');    
@@ -58,11 +59,18 @@ Route::middleware('auth')->group(function () {
             Route::get('/pending-withdrawal', [AdminController::class, 'pendingWithdrawal'])->name('admin.withdraw');    
             Route::put('/pending-withdrawal/{id}/{action}', [AdminController::class, 'pendingWithdrawalAction'])->name('admin.withdraw.action');
             Route::put('/minimum-withdrawal', [AdminController::class, 'updateMinimumWithdrawal'])->name('admin.withdraw.minimum');
-            Route::get('/vip-levels', [AdminController::class, 'vipLevels'])->name('admin.levels');    
+            Route::get('/vip-levels', [AdminController::class, 'addVipLevel'])->name('admin.levels.add');    
             Route::post('/vip-levels', [AdminController::class, 'storeVipLevel'])->name('admin.levels.store');    
+            Route::get('/vip-levels/manage', [AdminController::class, 'manageVipLevels'])->name('admin.levels.manage');
             Route::get('/products', [AdminController::class, 'products'])->name('admin.products');    
             Route::post('/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');    
             Route::get('/user/{id}', [AdminController::class, 'showUser'])->name('admin.user.show');
+            Route::get('/vip-levels/show/{slug}', [AdminController::class, 'showVip'])->name('admin.vip.show');
+            Route::delete('/vip-levels/delete/{id}', [AdminController::class, 'deleteVip'])->name('admin.vip.delete');
+            Route::get('/vip-levels/edit/{slug}', [AdminController::class, 'editVip'])->name('admin.vip.edit');
+            Route::put('/vip-levels/edit/{slug}', [AdminController::class, 'updateVip'])->name('admin.vip.update');
+
+
         });
     });
 

@@ -21,8 +21,12 @@ class VipTableSeeder extends Seeder
         $vips = [
             [
                 'name' => 'VIP1',
+                'slug' => 'vip1',
                 'amount' => 100,
                 'orders_per_day' => 45,
+                'sets' => 3,
+                'min_prod_amount' => 120,
+                'max_prod_amount' => 170,
                 'percentage_profit' => 0.5,
                 'image' => '652d1e14e4b023900c3f5f07_vip1.png',
                 'description' => json_encode([
@@ -34,8 +38,12 @@ class VipTableSeeder extends Seeder
             ],
             [
                 'name' => 'VIP2',
+                'slug' => 'vip2',
                 'amount' => 500,
                 'orders_per_day' => 50,
+                'sets' => 3,
+                'min_prod_amount' => 200,
+                'max_prod_amount' => 280,
                 'percentage_profit' => 1,
                 'image' => '652d1e0fe4b023900c3f5f06_vip2.png',
                 'description' => json_encode([
@@ -47,8 +55,12 @@ class VipTableSeeder extends Seeder
             ],
             [
                 'name' => 'VIP3',
+                'slug' => 'vip3',
                 'amount' => 1000,
                 'orders_per_day' => 55,
+                'sets' => 3,
+                'min_prod_amount' => 290,
+                'max_prod_amount' => 340,
                 'percentage_profit' => 1.5,
                 'image' => '652d1e07e4b023900c3f5f05_vip3.png',
                 'description' => json_encode([
@@ -60,8 +72,12 @@ class VipTableSeeder extends Seeder
             ],
             [
                 'name' => 'VIP4',
+                'slug' => 'vip4',
                 'amount' => 2000,
                 'orders_per_day' => 60,
+                'sets' => 3,
+                'min_prod_amount' => 350,
+                'max_prod_amount' => 500,
                 'percentage_profit' => 2,
                 'image' => '652d1dfae4b023900c3f5f04_vip4.png',
                 'description' => json_encode([

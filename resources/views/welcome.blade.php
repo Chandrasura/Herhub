@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <link href="css/slide.css" rel="stylesheet" />
-    <link href="css/popup.css" rel="stylesheet" />
+    <link href="{{ asset('css/slide.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/popup.css') }}" rel="stylesheet" />
     <div class='min-h-screen w-full'id="blur">
         <header>
             @include('layouts.header')

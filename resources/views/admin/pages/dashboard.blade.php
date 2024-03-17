@@ -82,6 +82,13 @@
                                       <a href="{{ route('admin.user.show', $user->id) }}" class="btn">
                                           <i class="fa fa-eye text-success px-2" aria-hidden="true"></i>
                                       </a>
+                                      @if ($status = $user->setCompletion($user->id))
+                                        @if ($status->status == "reset")
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reset" onclick="resetUser('{{ $user->id }}')">
+                                                Reset Today Set
+                                        </button>    
+                                        @endif
+                                    @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -127,4 +134,41 @@
 
     </div>
   </div>
+
+  <div class="modal fade" id="reset">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Reset User Today Task</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reset this user Today task?
+            </div>
+            <div class="modal-footer">
+                <form name="reset_form" action="" method="post">
+                    @csrf
+                    @method('put')
+                    <button type="submit" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('js')
+    <script>
+        let resetBaseUrl = "{{ route('admin.user.reset', ['id' => '__id__']) }}"
+
+        function resetUser(id){
+            let resetUrl = resetBaseUrl.replace('__id__', '') + id;
+
+            let reset_form = document.forms['reset_form'];        
+            reset_form.action = resetUrl;
+        }
+
+    </script>
 @endsection

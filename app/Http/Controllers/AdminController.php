@@ -14,6 +14,7 @@ use App\Models\Support;
 use App\Models\Settings;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
+use App\Models\SetCompletion;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -164,9 +165,8 @@ class AdminController extends Controller
 
     }
 
-    public function vipLevels(){
-        $vips = Vip::all();
-        return view('admin.pages.levels', compact(['vips']));
+    public function addVipLevel(){
+        return view('admin.pages.add_vip');
     }
 
     public function storeVipLevel(Request $request){
@@ -174,6 +174,15 @@ class AdminController extends Controller
             'vip_name' => 'required|string|unique:vips,name',
             'vip_amount' => 'required|integer|gt:0',
             'orders_per_day' => 'required|integer|gt:0',
+            'sets' => 'required|integer|gt:0',
+            'minimum_product_amount' => 'required|integer|gt:0',
+            'maximum_product_amount' => [
+                'required', 'integer', 'gt:0', function($attribute, $value, $fail) use ($request){
+                    if ($value < $request->minimum_product_amount) {
+                        $fail("The maxmium product amount cannot be less than the minimum product amount");
+                    }
+                }
+            ],
             'percentage_profit' => 'required|numeric|gt:0',
             'image' => 'required|file|image|mimes:jpeg,jpg,webp,gif,png',
             'description' => 'required|array|min:1',
@@ -192,18 +201,112 @@ class AdminController extends Controller
 
         $file->move('uploads/images/vips', $fileName);
 
+        $slug = strtolower(str_replace(" ", "-", $request->vip_name));
+ 
         Vip::create([
             'name' => $request->vip_name,
+            'slug' => $slug,
             'amount' => $request->vip_amount,
             'orders_per_day' => $request->orders_per_day,
+            'sets' => $request->sets,
+            'min_prod_amount' => $request->minimum_product_amount,
+            'max_prod_amount' => $request->maximum_product_amount,
             'percentage_profit' => $request->percentage_profit,
             'image' => $fileName,
             'description' => json_encode($descriptions),
         ]);
 
-        return redirect()->back()->with('success', 'Vip added successfully');    
+        return redirect()->route('admin.levels.manage')->with('success', 'Vip added successfully');    
 
     }
+
+    public function manageVipLevels(){
+        $vips = Vip::all();
+        return view('admin.pages.manage_vip', compact(['vips']));
+    }
+
+
+    public function showVip($slug){
+        $vip = Vip::where('slug', $slug)->first();
+        return view('admin.pages.show_vip', compact(['vip']));
+    }
+
+    public function editVip($slug){
+        $vip = Vip::where('slug', $slug)->first();
+        return view('admin.pages.edit_vip', compact(['vip']));
+    }
+
+    public function updateVip(Request $request, $slug){
+        $vip = Vip::where('slug', $slug)->first();
+        if(!$vip){
+            return redirect()->back()->with('error', 'The Vip you are trying to update does not exist');
+        }
+        $request->validate([
+            'vip_name' => [
+                'required', 'string', function($attribute, $value, $fail) use ($vip){
+                    $exist = Vip::where('slug', '!=', $vip->slug)->where('name', $value)->exists();
+                    if ($exist) {
+                        $fail("The $attribute is already taken");
+                    }
+                }
+            ],
+            'vip_amount' => 'required|integer|gt:0',
+            'orders_per_day' => 'required|integer|gt:0',
+            'sets' => 'required|integer|gt:0',
+            'minimum_product_amount' => 'required|integer|gt:0',
+            'maximum_product_amount' => [
+                'required', 'integer', 'gt:0', function($attribute, $value, $fail) use ($request){
+                    if ($value < $request->minimum_product_amount) {
+                        $fail("The maxmium product amount cannot be less than the minimum product amount");
+                    }
+                }
+            ],
+            'percentage_profit' => 'required|numeric|gt:0',
+            'image' => 'nullable|file|image|mimes:jpeg,jpg,webp,gif,png',
+            'description' => 'required|array|min:1',
+            'description.*' => 'required|string'
+        ]);
+
+        $descriptions = [];
+
+        foreach($request->description as $des){
+            $descriptions[] = $des;
+        }
+
+        $fileName = $vip->image;
+        if($request->hasFile('image')){
+            $file = $request->File('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = "$request->vip_name.$extension";
+    
+            $file->move('uploads/images/vips', $fileName);
+        }
+
+        $slug = strtolower(str_replace(" ", "-", $request->vip_name));
+ 
+        $vip->update([
+            'name' => $request->vip_name,
+            'slug' => $slug,
+            'amount' => $request->vip_amount,
+            'orders_per_day' => $request->orders_per_day,
+            'sets' => $request->sets,
+            'min_prod_amount' => $request->minimum_product_amount,
+            'max_prod_amount' => $request->maximum_product_amount,
+            'percentage_profit' => $request->percentage_profit,
+            'image' => $fileName,
+            'description' => json_encode($descriptions),
+        ]);
+
+        return redirect()->route('admin.levels.manage')->with('success', 'Vip updated successfully');    
+
+    }
+
+    public function deleteVip($id){
+        Vip::find($id)->delete();
+
+        return redirect()->route('admin.levels.manage')->with('success', 'VIP deleted successfully');
+    }
+
 
     public function products(){
         $products = Product::orderBy('name', 'ASC')->get();
@@ -228,15 +331,7 @@ class AdminController extends Controller
                 $file->move('uploads/images/products', $fileName);
 
                 foreach($vips as $vip) {
-                    if($vip->name == "VIP1") {
-                        $amount = $this->generateProductAmount(100, 350);
-                    } else if($vip->name == "VIP2") {
-                        $amount = $this->generateProductAmount(250, 600);
-                    } else if($vip->name == "VIP3") {
-                        $amount = $this->generateProductAmount(500, 1200);
-                    } else if($vip->name == "VIP4") {
-                        $amount = $this->generateProductAmount(800, 4000);
-                    }
+                    $amount = $this->generateProductAmount($vip->min_prod_amount, $vip->max_prod_amount);
 
                     Product::create([
                         'name' => $productName,
@@ -282,5 +377,14 @@ class AdminController extends Controller
         $floatRand = mt_rand() / (mt_getrandmax() + 1);
         return round($min + ($max - $min) * $floatRand, 2); 
     }
+
+    public function resetUser($id){
+        $today_set = SetCompletion::where('user_id', $id)->whereDate('created_at', Carbon::today())->first();
+        $today_set->update([
+            'status' => 'ongoing',
+        ]);
+        return redirect()->route('admin.dashboard')->with('success', 'User today task reset successfully');
+    }
+
 
 }

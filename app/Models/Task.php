@@ -10,7 +10,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_id', 'status', 'user_id'
+        'product_id', 'status', 'user_id', 'set'
     ];
 
     public function product(){

@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('set_completions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('status')->default('pending');
-            $table->integer('set')->default(1);
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->integer('sets_completed');
+            $table->integer('total_sets');
+            $table->enum('status', ['ongoing', 'reset', 'completed'])->default('ongoing');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('set_completions');
     }
 };

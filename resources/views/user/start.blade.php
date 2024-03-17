@@ -64,7 +64,7 @@
                             <div class="h-32 w-32 bg-[#2490E2] rounded-full text-white p-4 flex justify-center items-center gap-4 flex-col cursor-pointer"
                                 id="game">
                                 <p>Starting Now</p>
-                                <p><span id="number_of_tasks">{{ $task }}</span> / {{ $user->vip->orders_per_day }}</p>
+                                <p><span id="number_of_tasks">{{ $task }}</span> / {{ $user->vip->orders_per_day / $user->vip->sets }}</p>
                             </div>
                             <p class="text-red-500" id="pending-task"></p>
                         </div>

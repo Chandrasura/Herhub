@@ -1,14 +1,14 @@
 <nav class="bg-black border-gray-200 md:px-12 px-6 lg:px-6 py-4">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-        <a href="/" class="flex items-center">
-            <img src="assets/logo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+        <a href="{{ route('pages.index') }}" class="flex items-center">
+            <img src="{{ asset('assets/logo.png') }}" class="mr-3 h-6 sm:h-9" alt="Westmetric Logo" />
         </a>
         <div class="flex items-center lg:order-2">
 
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                 class="bg-transparent border-none outline-none focus:outline-none focus:border-none"
                 type="button">
-                <img src="assets/dropdown.png" class="w-5 h-5 mr-2" alt="dropdown" />
+                <img src="{{ asset('assets/dropdown.png') }}" class="w-5 h-5 mr-2" alt="dropdown" />
             </button>
 
             <!-- Dropdown menu -->

@@ -26,6 +26,8 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin-lte/plugins/summernote/summernote-bs4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -219,9 +221,15 @@
                 </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('admin.levels') }}" class="nav-link">
+              <a href="{{ route('admin.levels.add') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>VIP Levels</p>
+                  <p>Add VIP Level</p>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="{{ route('admin.levels.manage') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage VIP Levels</p>
               </a>
           </li>
           <li class="nav-item">
@@ -334,11 +342,15 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('admin-lte/dist/js/adminlte.js') }}"></script>
 <script src="{{ asset('admin-lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
 <script>
   $(function () {
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
+      "lengthChange": true,
       "searching": true,
       "ordering": true,
       "info": true,

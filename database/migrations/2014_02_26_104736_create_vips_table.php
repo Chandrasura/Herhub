@@ -16,8 +16,12 @@ return new class extends Migration
         Schema::create('vips', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->integer('amount');
             $table->integer('orders_per_day');
+            $table->integer('sets');
+            $table->integer('min_prod_amount');
+            $table->integer('max_prod_amount');
             $table->float('percentage_profit');
             $table->string('image');
             $table->json('description');

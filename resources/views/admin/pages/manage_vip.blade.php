@@ -1,60 +1,6 @@
 @extends('admin.layout.app')
 
 @section('content')
-    <!-- general form elements -->
-    <form name="vip-level" action="{{ route('admin.levels.store') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    @method('post')
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="vip_name">VIP Level Name</label>
-                <input type="text" id="vip_name" name="vip_name" value="{{ old('vip_name') }}" class="form-control">
-                @error('vip_name')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="vip_amount">VIP Amount</label>
-                <input type="number" id="vip_amount" name="vip_amount" value="{{ old('vip_amount') }}" class="form-control">
-                @error('vip_amount')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="orders_per_day">Number of orders per day</label>
-                <input type="number" id="orders_per_day" name="orders_per_day" value="{{ old('orders_per_day') }}" class="form-control">
-                @error('orders_per_day')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="percentage_profit">Percentage Profit</label>
-                <input type="number" id="percentage_profit" name="percentage_profit" value="{{ old('percentage_profit') }}" class="form-control">
-                @error('percentage_profit')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="image">Image</label>
-                <input type="file" id="image" name="image" class="form-control">
-                @error('image')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-            <div class="col-6 mb-3">
-                <label for="description1">Description 1</label>
-                <input type="text" id="description1" name="description[]" value="{{ old('description.*') }}" class="form-control">
-                @error('description.*')
-                    <strong class="text-danger">{{ $message }}</strong>
-                @enderror
-            </div>
-        </div>
-        <div class="row mb-3">
-            <button type="button" name="addDescription" class="btn btn-success">Add more description</button>
-        </div>
-        <input type="submit" class="btn btn-success d-flex mx-auto" value="Add VIP Level">
-    </form>
-
   <div class="row mt-5">
     <div class="col-12 card">
         <div class="card-header">
@@ -82,10 +28,19 @@
                                         aria-label="Rendering engine: activate to sort column descending">Name
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Upgrade Amount
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Orders per day
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Number of Sets
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Minimum Product Amount
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Maximum  Product Amount
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Percentage Profit (%)
@@ -96,6 +51,9 @@
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Image
                                     </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,6 +63,9 @@
                                     <td>{{$vip->name}}</td>
                                     <td>{{$vip->amount}}</td>
                                     <td>{{ $vip->orders_per_day }}</td>
+                                    <td>{{ $vip->sets }}</td>
+                                    <td>{{ $vip->min_prod_amount }}</td>
+                                    <td>{{ $vip->max_prod_amount }}</td>
                                     <td>{{ $vip->percentage_profit }}</td>
                                     <td>
                                         <ul>
@@ -115,6 +76,17 @@
                                     </td>
                                     <td>
                                         <img src="{{ asset('uploads/images/vips/' . $vip->image) }}" style="width: 30px; height: 30px" alt="{{ $vip->name }}" />
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.vip.show', $vip->slug) }}" class="btn">
+                                            <i class="fa fa-eye text-success px-2" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ route('admin.vip.edit', $vip->slug) }}" class="btn">
+                                            <i class="fa fa-edit text-primary px-2" aria-hidden="true"></i>
+                                        </a>                                                                                                                                                                                   
+                                        <button type="button" class="btn" data-toggle="modal" data-target="#delete" onclick="deleteVip('{{ $vip->id }}')">
+                                            <i class="fa fa-trash text-danger px-2" aria-hidden="true"></i>
+                                        </button>    
                                     </td>
                                 </tr>
                                 @endforeach
@@ -130,10 +102,19 @@
                                         aria-label="Rendering engine: activate to sort column descending">Name
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Upgrade Amount
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Orders per day
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Number of Sets
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Minimum Product Amount
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Maximum  Product Amount
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Percentage Profit (%)
@@ -143,6 +124,9 @@
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1" aria-label="Browser: activate to sort column ascending">Image
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Action
                                     </th>
                                 </tr>
                             </tfoot>
@@ -154,54 +138,41 @@
 
     </div>
   </div>
+
+  <div class="modal fade" id="delete">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete VIP Level</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this VIP Level?
+            </div>
+            <div class="modal-footer">
+                <form name="delete_form" action="" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('js')
     <script>
-        function removeDescription(id) {
-            let new_id = `desc_${id}`;
-            let dom = document.getElementById(new_id);
-            dom.remove();
+        let deleteBaseUrl = "{{ route('admin.vip.delete', ['id' => '__id__']) }}"
+
+        function deleteVip(id){
+            let deleteUrl = deleteBaseUrl.replace('__id__', '') + id;
+
+            let delete_form = document.forms['delete_form'];        
+            delete_form.action = deleteUrl;
         }
-
-        let i = 2;
-
-        let vipForm = document.forms['vip-level'];
-        let btnAddMoreDescription = vipForm["addDescription"];
-        btnAddMoreDescription.addEventListener("click", () => {
-            let div_id = "desc_" + i;
-            let node = document.createElement("div");
-            node.setAttribute("id", div_id);
-            node.classList.add("col-sm-6", "my-3");
-
-            let elementLabel = document.createElement("label");
-            elementLabel.setAttribute("for", `description${i}`);
-            elementLabel.innerHTML = `Description ${i}`;
-
-            let elementNode1 = document.createElement("input");
-
-            let inputAttribute = {
-                type: "text",
-                id: `description${i}`,
-                name: "description[]",
-                class: "form-control",
-            };
-            for (let attr in inputAttribute) {
-                elementNode1.setAttribute(attr, inputAttribute[attr]);
-            }
-
-            let elementNode2 = document.createElement("button");
-            elementNode2.classList.add("btn", "btn-danger", "p-2", "mt-2");
-            elementNode2.append("Remove");
-            elementNode2.setAttribute("id", i);
-            elementNode2.setAttribute("type", "button");
-            elementNode2.setAttribute("onclick", `removeDescription(${i})`);
-
-            node.append(elementLabel, elementNode1, elementNode2, elementNode2);
-
-            btnAddMoreDescription.parentNode.previousElementSibling.appendChild(node);
-            i++;
-        });
 
     </script>
 @endsection

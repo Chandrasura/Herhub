@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\SetCompletion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -251,8 +252,18 @@ class PagesController extends Controller
     public function starting(){
         $user = Auth::user();
         $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->sum('amount');
-        $task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
-        $products = Product::where('amount', '<', $user->available_balance)->where('vip_id', $user->vip_id)->get();
+
+        $completed_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
+        if($completed_set){
+            if($completed_set->sets_completed == $completed_set->total_sets){
+                $task = Task::where('user_id', $user->id)->where('set', $completed_set->sets_completed)->whereDate('created_at', Carbon::today())->count();
+            } else {
+                $task = Task::where('user_id', $user->id)->where('set', $completed_set->sets_completed + 1)->whereDate('created_at', Carbon::today())->count();
+            }
+        } else {
+            $task = Task::where('user_id', $user->id)->where('set', 1)->whereDate('created_at', Carbon::today())->count();
+        }
+        $products = Product::where('amount', '>', 100)->where('amount', '<', $user->available_balance)->where('vip_id', $user->vip_id)->get();
         return view('user.start', compact(['user', 'profit', 'task', 'products']));
     }
 
@@ -266,7 +277,14 @@ class PagesController extends Controller
             ]);
         }
 
-        $today_tasks = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
+        $completed_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
+        if($completed_set && $completed_set->status == 'reset'){
+            return response([
+                'error' => 'Kindly message the admin to reset your tasks to another set for today.'
+            ]);
+        }
+
+        $today_tasks = Task::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->count();
 
         if($today_tasks == $user->vip->orders_per_day){
             return response([
@@ -275,22 +293,36 @@ class PagesController extends Controller
         }
 
         $product = Product::find($request->product);
-        $task = Task::create([
-            'product_id' => $product->id,
-            'user_id' => $user->id
-        ]);
 
-        $profit = round((($user->vip->percentage_profit / 100) * $task->product->amount), 2);
+        try{
+            DB::beginTransaction();
 
-        Profit::create([
-            'user_id' => $user->id,
-            'task_id' => $task->id,
-            'amount' => $profit
-        ]);
+            $today_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
 
-        $user->update([
-            'available_balance' => $user->available_balance - $product->amount
-        ]); 
+            $task = Task::create([
+                'product_id' => $product->id,
+                'user_id' => $user->id,
+                'set' => $today_set ? $today_set->sets_completed + 1 : 1
+            ]);
+
+            $profit = round((($user->vip->percentage_profit / 100) * $task->product->amount), 2);
+
+            Profit::create([
+                'user_id' => $user->id,
+                'task_id' => $task->id,
+                'amount' => $profit
+            ]);
+
+            $user->update([
+                'available_balance' => $user->available_balance - $product->amount
+            ]);
+            DB::commit();
+        
+        } catch(Exception $e){
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Something went wrong...');
+        }
+
 
         return response([
             'task' => $task->id
@@ -301,18 +333,56 @@ class PagesController extends Controller
         $user = Auth::user();
 
         $task = Task::find($request->task);
-        $task->update([
-            'status' => 'completed'
-        ]);
 
-        $task->profit->update([
-            'status' => 'completed'
-        ]);
+        try {
+            DB::beginTransaction();
 
-        $user->update([
-            'available_balance' => $user->available_balance + $task->product->amount + $task->profit->amount,
-            'total_balance' => $user->total_balance + $task->profit->amount
-        ]);
+            $task->update([
+                'status' => 'completed'
+            ]);
+
+            $task->profit->update([
+                'status' => 'completed'
+            ]);
+
+            $user->update([
+                'available_balance' => $user->available_balance + $task->product->amount + $task->profit->amount,
+                'total_balance' => $user->total_balance + $task->profit->amount
+            ]);
+            
+            $today_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
+            
+            if($today_set){
+                $today_set_tasks = Task::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->where('set', $today_set->sets_completed + 1)->count();
+                if($today_set_tasks == $user->vip->orders_per_day / $user->vip->sets) {
+                    if($today_set->sets_completed < $today_set->total_sets){
+                        $today_set->update([
+                            'sets_completed' => $today_set->sets_completed + 1,
+                            'status' => 'reset'
+                        ]);            
+                    }
+
+                    if($today_set->sets_completed == $today_set->total_sets){
+                        $today_set->update([
+                            'status' => 'completed'
+                        ]);            
+                    }
+
+                }
+            } else {
+                $today_set = SetCompletion::create([
+                    'user_id' => $user->id,
+                    'sets_completed' => 0,
+                    'total_sets' => $user->vip->sets
+                ]);
+            }
+            
+            DB::commit();
+    
+        } catch(Exception $e){
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Something went wrong...');
+        }
 
         return redirect()->back()->with('success', 'Task completed successfully!!!');
 
