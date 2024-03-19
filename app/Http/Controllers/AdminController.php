@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     public function dashboard(){
-        $users = User::orderBy('name', 'ASC')->get();
+        $users = User::where('role', '!=', 'admin')->orderBy('name', 'ASC')->get();
         
         $users->map(function ($user){
             $user->upgrade = Vip::where('id', '>', $user->vip_id)->get();
@@ -30,7 +30,7 @@ class AdminController extends Controller
     }
 
     public function showUser($id){
-        $user = User::find($id);
+        $user = User::where('role', '!=', 'admin')->where('id', $id)->first();
         if($user) {
             $user->today_task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->count();
             $user->overall_task = Task::where('user_id', $user->id)->count();
@@ -65,7 +65,7 @@ class AdminController extends Controller
     }
 
     public function deposit(){
-        $users = User::all();
+        $users = User::where('role', '!=', 'admin')->get();
         return view('admin.pages.deposit', compact(['users']));
     }
 

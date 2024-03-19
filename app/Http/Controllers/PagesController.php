@@ -133,6 +133,10 @@ class PagesController extends Controller
     public function storeWithdraw(Request $request){
         $user = Auth::user();
 
+        if($user->role == 'admin'){
+            return redirect()->back()->with('error', 'You cannot place withdrawal as an admin');
+        }
+
         if(!$user->wallet_address){
             return redirect()->back()->with('error', 'Kindly update wallet address first to place withdrawal');
         }
@@ -263,8 +267,6 @@ class PagesController extends Controller
 
         $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->whereDate('created_at', Carbon::today())->sum('amount');
 
-        $vip = Vip::where('id', $user->vip_id)->first();
-
         $completed_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
         if($completed_set){
             if($completed_set->sets_completed == $completed_set->total_sets){
@@ -275,8 +277,20 @@ class PagesController extends Controller
         } else {
             $task = Task::where('user_id', $user->id)->where('set', 1)->whereDate('created_at', Carbon::today())->count();
         }
-        $products = Product::where('amount', '>', $vip->min_prod_amount)->where('amount', '<', $user->available_balance)->where('vip_id', $user->vip_id)->get();
-        return view('user.start', compact(['user', 'profit', 'task', 'products']));
+        $products = Product::where('amount', '>=', $user->vip->min_prod_amount)->where('amount', '<', $user->available_balance)->where('vip_id', $user->vip_id)->get();
+
+        $pending_tasks = Task::where('user_id', $user->id)->where('status', 'pending')->get();
+        if(count($pending_tasks) > 0){
+                $error = [
+                    'status' => 'pending',
+                    'message' => 'You have pending task to attend to!!!'
+                ];
+        } else {
+            $error = [
+                'status' => 'allowed',
+            ];
+        }
+        return view('user.start', compact(['user', 'profit', 'task', 'products', 'error']));
     }
 
     public function task(Request $request){
@@ -292,6 +306,10 @@ class PagesController extends Controller
         if(count($pending_tasks) > 0){
             return response([
                 'error' => 'You have pending task to attend to!!!'
+            ]);
+        } else if ($user->available_balance < 100) {
+            return response([
+                'error' => 'You need a minimum balance of USDT 100.00 to perform any task.'
             ]);
         }
 

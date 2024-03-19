@@ -60,13 +60,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="h-[10vh] w-full my-4 mt-20 rounded-lg flex flex-col justify-center items-center">
-                            <div class="h-32 w-32 bg-[#2490E2] rounded-full text-white p-4 flex justify-center items-center gap-4 flex-col cursor-pointer"
-                                id="game">
-                                <p>Starting Now</p>
-                                <p><span id="number_of_tasks">{{ $task }}</span> / {{ $user->vip->orders_per_day / $user->vip->sets }}</p>
+                        <div id="game_wrapper">
+                            <div class="h-[10vh] w-full my-4 mt-20 rounded-lg flex flex-col justify-center items-center">
+                                <div class="h-32 w-32 bg-[#2490E2] rounded-full text-white p-4 flex justify-center items-center gap-4 flex-col cursor-pointer"
+                                    id="game">
+                                    <p>Starting Now</p>
+                                    <p><span id="number_of_tasks">{{ $task }}</span> / {{ $user->vip->orders_per_day / $user->vip->sets }}</p>
+                                </div>
+                                <p class="text-red-500" id="pending-task"></p>
                             </div>
-                            <p class="text-red-500" id="pending-task"></p>
                         </div>
                     </div>
                 </div>
@@ -116,6 +118,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
         let game = document.getElementById('game');
+        let game_wrapper = document.getElementById('game_wrapper');
         let popup = document.getElementById('popup');
         let close = document.getElementById('close');
         let blur = document.getElementById('blur');
@@ -156,6 +159,7 @@
         
         let products = @json($products);
         let user = @json($user);
+        let error_pending = @json($error);
 
         for (let i = 0; i < products.length; i++) {
             items[i] = {
@@ -169,7 +173,9 @@
 
         // Function to update popup content with a random item from the array
         function updatePopupContent() {
-            if(items.length > 0) {
+            if (error_pending['status'] == 'pending') {
+                document.getElementById('pending-task').innerHTML = error_pending['message'];
+            } else if(items.length > 0) {
                 let randomIndex = Math.floor(Math.random() * items.length);
                 let item = items[randomIndex];
                 document.getElementById('image').src = item.image;
@@ -184,7 +190,13 @@
             }
         }
         game.addEventListener('click', function() {
+            game.style.pointerEvents = 'none'; 
+            game.style.opacity = '0.6';
+            game_wrapper.style.cursor = 'not-allowed';
             updatePopupContent(); // Update content when the game is clicked
+            game.style.pointerEvents = 'auto';
+            game.style.opacity = '1';
+            game_wrapper.style.cursor = 'pointer';
         });
         close.addEventListener('click', toggle);
         // submit.addEventListener('click', toggle);

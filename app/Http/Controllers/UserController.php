@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,8 @@ class UserController extends Controller
 {
     public function profile(){
         $user = Auth::user();
-        return view('user.profile', compact(['user']));
+        $profit = Profit::where('user_id', $user->id)->where('status', 'completed')->sum('amount');
+        return view('user.profile', compact(['user', 'profit']));
     }
 
     public function personalInfo(){

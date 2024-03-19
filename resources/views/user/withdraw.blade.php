@@ -8,7 +8,7 @@
         <div class='h-fit w-full bg-gradient-to-r from-[#84269C] to-[#78249C] flex justify-center items-center'>
             <div class="bg-white1 w-4/5 h-4/5 rounded-lg p-3 sm:p-10 my-10 relative">
                 <div class="flex flex-col items-center justify-center p-2 sm:p-6">
-                    <form class="sm:w-3/5 w-full">
+                    <div class="sm:w-3/5 w-full">
                         <div class="flex justify-between items-center">
                             <a href="{{ route('pages.index') }}">
                                 <i class='bx bx-chevron-left font-bold text-2xl cursor-pointer'></i>

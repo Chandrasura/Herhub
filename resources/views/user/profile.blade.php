@@ -42,7 +42,7 @@
                         <div class="bg-frame text-white p-6 h-fit w-full rounded-lg mt-4 flex flex-col sm:flex-row justify-between">
                             <div class="w-full sm:w-1/2 flex text-lg gap-4 flex-col border-b sm:border-b-0 sm:border-r border-white">
                                 <p class="text-gray-300">Total Profit</p>
-                                <p>USDT 0.00</p>
+                                <p>USDT {{ number_format($profit, 2) }}</p>
                             </div>
                             <div class="flex text-lg gap-4 flex-col">
                                 <p class="text-gray-300">Total Balance</p>
