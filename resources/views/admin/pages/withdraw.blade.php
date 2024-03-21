@@ -62,24 +62,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pending as $pend)
+                                @foreach ($withdrawals as $withdraw)
+                                @if ($withdraw->status == 'pending')
                                 <tr class="odd">
-                                    <td class="dtr-control sorting_1" tabindex="0">{{$pend->user->username}}</td>
-                                    <td>{{$pend->amount}}</td>
-                                    <td>{{$pend->user->wallet_account_name}}</td>
-                                    <td>{{$pend->user->wallet_address}}</td>
-                                    <td>{{$pend->user->wallet_name}}</td>
-                                    <td>{{$pend->user->wallet_network}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($pend->created_at)->format('M. d, Y') }}</td>
+                                    <td class="dtr-control sorting_1" tabindex="0">{{$withdraw->user->username}}</td>
+                                    <td>{{$withdraw->amount}}</td>
+                                    <td>{{$withdraw->user->wallet_account_name}}</td>
+                                    <td>{{$withdraw->user->wallet_address}}</td>
+                                    <td>{{$withdraw->user->wallet_name}}</td>
+                                    <td>{{$withdraw->user->wallet_network}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($withdraw->created_at)->format('M. d, Y') }}</td>
                                     <td>
-                                        <button type="button" class="btn" title="Approve Withdrawal" data-toggle="modal" data-target="#action_form" onclick="action('{{ $pend->id }}', 'Approve')">
+                                        <button type="button" class="btn" title="Approve Withdrawal" data-toggle="modal" data-target="#action_form" onclick="action('{{ $withdraw->id }}', 'Approve')">
                                             <i class="fa fa-check text-success px-2" aria-hidden="true"></i>
                                         </button>                                                                                           
-                                        <button type="button" class="btn" title="Reject Withdrawal" data-toggle="modal" data-target="#action_form" onclick="action('{{ $pend->id }}', 'Reject')">
+                                        <button type="button" class="btn" title="Reject Withdrawal" data-toggle="modal" data-target="#action_form" onclick="action('{{ $withdraw->id }}', 'Reject')">
                                             <i class="fa fa-trash text-danger px-2" aria-hidden="true"></i>
                                         </button>
                                     </td>    
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -110,6 +112,178 @@
 
     </div>
   </div>
+
+  <div class="row mt-5">
+    <div class="col-12 card">
+        <div class="card-header">
+            <h3 class="card-title">Successful Withdrawal</h3>
+        </div>
+
+        <div class="card-body">
+            <div id="successful_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="successful" class="table table-bordered table-hover dataTable dtr-inline"
+                            aria-describedby="successful_info">
+                            <thead>
+                                <tr>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Rendering engine: activate to sort column descending">Username
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount (USDT)
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Account Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Address
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Network
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Date placed
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($withdrawals as $withdraw)
+                                @if ($withdraw->status == 'successful')
+                                <tr class="odd">
+                                    <td class="dtr-control sorting_1" tabindex="0">{{$withdraw->user->username}}</td>
+                                    <td>{{$withdraw->amount}}</td>
+                                    <td>{{$withdraw->user->wallet_account_name}}</td>
+                                    <td>{{$withdraw->user->wallet_address}}</td>
+                                    <td>{{$withdraw->user->wallet_name}}</td>
+                                    <td>{{$withdraw->user->wallet_network}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($withdraw->created_at)->format('M. d, Y') }}</td>
+                                </tr>
+                                @endif
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th rowspan="1" colspan="1">Username</th>
+                                    <th rowspan="1" colspan="1">Amount (USDT)</th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Account Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Address
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="successful" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Network
+                                    </th>
+                                    <th rowspan="1" colspan="1">Date placed</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12 card">
+        <div class="card-header">
+            <h3 class="card-title">Rejected Withdrawal</h3>
+        </div>
+
+        <div class="card-body">
+            <div id="rejected_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="rejected" class="table table-bordered table-hover dataTable dtr-inline"
+                            aria-describedby="rejected_info">
+                            <thead>
+                                <tr>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Rendering engine: activate to sort column descending">Username
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Amount (USDT)
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Account Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Address
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Network
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Date placed
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($withdrawals as $withdraw)
+                                @if ($withdraw->status == 'rejected')
+                                <tr class="odd">
+                                    <td class="dtr-control sorting_1" tabindex="0">{{$withdraw->user->username}}</td>
+                                    <td>{{$withdraw->amount}}</td>
+                                    <td>{{$withdraw->user->wallet_account_name}}</td>
+                                    <td>{{$withdraw->user->wallet_address}}</td>
+                                    <td>{{$withdraw->user->wallet_name}}</td>
+                                    <td>{{$withdraw->user->wallet_network}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($withdraw->created_at)->format('M. d, Y') }}</td>
+                                </tr>
+                                @endif
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th rowspan="1" colspan="1">Username</th>
+                                    <th rowspan="1" colspan="1">Amount (USDT)</th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Account Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Address
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Name
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="rejected" rowspan="1"
+                                        colspan="1" aria-label="Browser: activate to sort column ascending">Wallet Network
+                                    </th>
+                                    <th rowspan="1" colspan="1">Date placed</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+
 
   <div class="modal fade" id="action_form">
     <div class="modal-dialog modal-dialog-centered">
@@ -151,4 +325,34 @@
 
 </script>
 
+@endsection
+
+@section('js')
+<script>
+    $(function () {
+      $('#successful').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+
+    $(function () {
+      $('#rejected').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+
+</script>
+  
 @endsection

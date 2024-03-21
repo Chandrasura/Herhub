@@ -313,6 +313,16 @@ class PagesController extends Controller
             ]);
         }
 
+        $previous_tasks = Task::where('user_id', $user->id)->whereDate('created_at', '<', Carbon::today())->get();
+        if(count($previous_tasks) > 0) {
+            $today_task = Task::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
+            if(!$today_task && $user->available_balance > 0) {
+                return response([
+                    'error' => 'Kindly withdraw previous balance before starting a new task today.'
+                ]);
+            }
+        }
+
         $completed_set = SetCompletion::where('user_id', $user->id)->whereDate('created_at', Carbon::today())->first();
         if($completed_set && $completed_set->status == 'reset'){
             return response([

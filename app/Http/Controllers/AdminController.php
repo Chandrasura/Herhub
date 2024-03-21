@@ -130,8 +130,8 @@ class AdminController extends Controller
 
     public function pendingWithdrawal(){
         $minimum_withdrawal = Settings::where('key', 'minimum_withdrawal')->first();
-        $pending = Withdraw::where('status', 'pending')->orderBy('created_at', 'DESC')->get();
-        return view('admin.pages.withdraw', compact(['pending', 'minimum_withdrawal']));
+        $withdrawals = Withdraw::orderBy('created_at', 'DESC')->get();
+        return view('admin.pages.withdraw', compact(['withdrawals', 'minimum_withdrawal']));
     }
 
     public function pendingWithdrawalAction($id, $action){
